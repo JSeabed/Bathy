@@ -10,16 +10,16 @@
 
 #/////////////////////////////////  Importing modules for functions later used    ///////////////////////
 
-import os                                                   # importing the possibility to operate system commands
-import sys                                                  # Importing the possibility to use some system variables
-import serial                                               # Importing the possibility to use serial communication
-import threading                                            # Importing the possibility to run multiple operations at the same time
-import datetime                                             # Importing some (system) clock operations
-import time                                                 # Importing some (system) clock operations
-import logging                                              # importing the possibility to track events and log them
-import socket                                               # Importing Networking interface
-import Adafruit_BBIO.GPIO as GPIO                           # importing GPIO usability
-import string                                               # Importing string manipulation usability
+import os                                                  
+import sys                                                 
+import serial                                               
+import threading                                            
+import datetime                                            
+import time                                                 
+import logging                                              
+import socket                                               
+import Adafruit_BBIO.GPIO as GPIO                           
+import string                                               
 
 
 
@@ -27,6 +27,17 @@ import string                                               # Importing string m
 
 
 #                   These variables are for the parsing of the ZDA data
+
+#sDay = ''
+#sMonth = ''
+#sYear = ''
+#sHour = ''
+#sMinute = ''
+#sSecond = ''
+#sMSecond = ''
+#date = ''
+#time = ''
+
 sDag = ''
 sMaand = ''
 sJaar = ''
@@ -43,6 +54,18 @@ status = 'st'
 dataToSend = '$SBDAML,,,,,,,,ST' + '\r\n'
 
 #                   These variables are used to pull the time from the systemclock and use them for tagging
+#sDayNow = ''
+#sMonthNow = ''
+#sYearNow = ''
+#sHourNow = ''
+#sMinuteNow = ''
+#sSecondNow = ''
+#sMSecondNow = ''
+#dateNow = ''
+#timeNow = ''
+#setTime = ''
+#dateTime = '' 
+
 sDagNu = ''
 sMaandNu = ''
 sJaarNu = ''
@@ -71,7 +94,8 @@ sock2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 
 #/////////////////////////////////   Defining triggers for functions    /////////////////////////////////
-
+# trigger is used for the PPS input. ZDA is used to monitor the time that has passed since the requested time(?) [original line: This trigger is to keep track of the "freshness" of the ZDA time info]. 
+# AML trigger is to see if there is unsend AML info
 bTrigger = False                                            # This trigger is used for the PPS input
 bZdaOntvangen = False                                       # This trigger is to keep track of the "freshness" of the ZDA time info
 bAmlOntvangen = False                                       # This trigger is to see if there is unsent AML info.
@@ -79,27 +103,30 @@ bAmlOntvangen = False                                       # This trigger is to
 
 #/////////////////////////////////    Error/debug logging functionality   ///////////////////////////////
 
-logging.basicConfig(level=logging.DEBUG,
-                    format='[%(levelname)s] (%(threadName)-10s) %(message)s',
-                    )
+#logging.basicConfig(level=logging.DEBUG,
+#                    format='[%(levelname)s] (%(threadName)-10s) %(message)s',
+#                    )
 
 
 #/////////////////////////////////  GPIO configuration   ////////////////////////////////////////////////
 
 #Configuring the general pins for input/output (GPIO
-#GPIO.setmode(GPIO.BCM)                                      # setup GPIO using Board numbering
+#GPIO.setmode(GPIO.BCM)                                      
+# setup GPIO using Board numbering
 GPIO.setup("P9_42", GPIO.IN, pull_up_down=GPIO.PUD_DOWN)          # setting Pin P9_42 as input, also a pull-down resistor is turned on internally
 
 
 #///////////////////   Serial communication configurations    ///////////////////////////////////////////
 
 #Open Com port of GPZDA (Connected through P9_26)
-serZda = serial.Serial('/dev/ttyO1')                      # Linking serZDA to the correct Com port
-serZda.baudrate = 19200                                      # Setting the communication speed of the serial port
-serZda.isOpen()                                             # Open serial port
+# Linking serZDA to the correct Com port with the correct baudrate and setting the state of the port to open.
+serZda = serial.Serial('/dev/ttyO1')                      
+serZda.baudrate = 19200                                     
+serZda.isOpen()                                             
 
 
 #Open Com port of AML (connected through P9_21 and P9_22)
+# Linking serAml to the correct Com port with the correct baudrate and setting the state of the port to open.
 serAml = serial.Serial('/dev/ttyO2')                      # Linking serAml to the correct Com port
 serAml.baudrate = 38400                                     # Setting the communication speed of the serial port
 serAml.isOpen()                                             # Open serial port
@@ -186,7 +213,7 @@ def parseAml (raw_mess):
     global UDP_IP2
     global UDP_PORT2   
     global sLineAml; sLineAml = raw_mess.split('  ')        # with split() each space seperated piece of raw_mess is written in array sLinesAml. 
-
+    print sLineAml
     if len(sLineAml) < 4:                                   # if the data is shorter then 5 blocks of data run next line
         print('something weird')                                     #not normal AML sensor info so forwarding to designated IP adress
         sock1.sendto(raw_mess + '\r\n', (UDP_IP1, UDP_PORT1))          # send the string to the first IP address over UDP
@@ -198,50 +225,50 @@ def parseAml (raw_mess):
                         # This bit customises the string to the amount of data blocks received from the AML
 
     if len(sLineAml) == 4:                                  # if the data is 3 blocks of data run next line    
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + status + '\r\n'    # Create a string of data   
+        dataToSend = '$SBDAML' + ',1' + datumNu + ',2' + sLineAml[1] + ',3' + sLineAml[2] + ',4' + sLineAml[3] + ',5' + status + '\r\n'    # Create a string of data   
 
     elif len(sLineAml) == 5:                                # if the data is 4 blocks of data run next line    
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + status + '\r\n'  
+        dataToSend = '$SBDAML' + ',1' + datumNu + ',2' + sLineAml[1] + ',3' + sLineAml[2] + ',4' + sLineAml[3] + ',5' + sLineAml[4] + ',6' + status + '\r\n'  
 
     elif len(sLineAml) == 6:                                # if the data is 5 blocks of data run next line
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + status + '\r\n'  
+        dataToSend = '$SBDAML' + ',1' + datumNu + ',2' + sLineAml[1] + ',3' + sLineAml[2] + ',4' + sLineAml[3] + ',5' + sLineAml[4] + ',6' + sLineAml[5] + ',7' + status + '\r\n'  
 
     elif len(sLineAml) == 7:                                # if the data is 6 blocks of data run next line
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + status + '\r\n'  
+        dataToSend = '$SBDAML' + ',1' + datumNu + ',2' + sLineAml[1] + ',3' + sLineAml[2] + ',4' + sLineAml[3] + ',5' + sLineAml[4] + ',6' + sLineAml[5] + ',7' + sLineAml[6] + ',8' + status + '\r\n'  
 
     elif len(sLineAml) == 8:                                # if the data is 7 blocks of data run next line
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + status + '\r\n'
+        dataToSend = '$SBDAML' + ',1' + datumNu + ',2' + sLineAml[1] + ',3' + sLineAml[2] + ',4' + sLineAml[3] + ',5' + sLineAml[4] + ',6' + sLineAml[5] + ',7' + sLineAml[6] + ',8' + sLineAml[7] + ',9' + status + '\r\n'
 
     elif len(sLineAml) == 9:                                # if the data is 8 blocks of data run next line 
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + status + '\r\n'   
+        dataToSend = '$SBDAML' + ',1' + datumNu + ',2' + sLineAml[1] + ',3' + sLineAml[2] + ',4' + sLineAml[3] + ',5' + sLineAml[4] + ',6' + sLineAml[5] + ',7' + sLineAml[6] + ',8' + sLineAml[7] + ',9' + sLineAml[8] + ',10' + status + '\r\n'   
 
     elif len(sLineAml) == 10:                               # if the data is 9 blocks of data run next line       
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + status+ '\r\n'    
+        dataToSend = '$SBDAML' + ',1' + datumNu + ',2' + sLineAml[1] + ',3' + sLineAml[2] + ',4' + sLineAml[3] + ',5' + sLineAml[4] + ',6' + sLineAml[5] + ',7' + sLineAml[6] + ',8' + sLineAml[7] + ',9' + sLineAml[8] + ',10' + sLineAml[9] + ',11' + status+ '\r\n'    
 
     elif len(sLineAml) == 11:                               # if the data is 10 blocks of data run next line        
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + status + '\r\n'   
+        dataToSend = '$SBDAML' + ',1' + datumNu + ',2' + sLineAml[1] + ',3' + sLineAml[2] + ',4' + sLineAml[3] + ',5' + sLineAml[4] + ',6' + sLineAml[5] + ',7' + sLineAml[6] + ',8' + sLineAml[7] + ',9' + sLineAml[8] + ',10' + sLineAml[9] + ',11' + sLineAml[10] + ',12' + status + '\r\n'   
 
     elif len(sLineAml) == 12:                               # if the data is 11 blocks of data run next line        
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + sLineAml[11] + ',' + status + '\r\n'    
+        dataToSend = '$SBDAML' + ',1' + datumNu + ',2' + sLineAml[1] + ',3' + sLineAml[2] + ',4' + sLineAml[3] + ',5' + sLineAml[4] + ',6' + sLineAml[5] + ',7' + sLineAml[6] + ',8' + sLineAml[7] + ',9' + sLineAml[8] + ',10' + sLineAml[9] + ',11' + sLineAml[10] + ',12' + sLineAml[11] + ',13' + status + '\r\n'    
 
     elif len(sLineAml) == 13:                               # if the data is 12 blocks of data run next line        
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + sLineAml[11] + ',' + sLineAml[12]+ ',' + status + '\r\n'   
+        dataToSend = '$SBDAML' + ',1' + datumNu + ',2' + sLineAml[1] + ',3' + sLineAml[2] + ',4' + sLineAml[3] + ',5' + sLineAml[4] + ',6' + sLineAml[5] + ',7' + sLineAml[6] + ',8' + sLineAml[7] + ',9' + sLineAml[8] + ',10' + sLineAml[9] + ',11' + sLineAml[10] + ',12' + sLineAml[11] + ',13' + sLineAml[12]+ ',14' + status + '\r\n'   
 
     elif len(sLineAml) == 14:                               # if the data is 13 blocks of data run next line        
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + sLineAml[11] + ',' + sLineAml[12]+ ',' + sLineAml[13] + ',' + status + '\r\n'   
+        dataToSend = '$SBDAML' + ',1' + datumNu + ',2' + sLineAml[1] + ',3' + sLineAml[2] + ',4' + sLineAml[3] + ',5' + sLineAml[4] + ',6' + sLineAml[5] + ',7' + sLineAml[6] + ',8' + sLineAml[7] + ',9' + sLineAml[8] + ',10' + sLineAml[9] + ',11' + sLineAml[10] + ',12' + sLineAml[11] + ',13' + sLineAml[12]+ ',14' + sLineAml[13] + ',15' + status + '\r\n'   
 
     elif len(sLineAml) == 15:                               # if the data is 14 blocks of data run next line       
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + sLineAml[11] + ',' + sLineAml[12]+ ',' + sLineAml[13] + ',' + sLineAml[14]+ ',' + status + '\r\n'   
+        dataToSend = '$SBDAML' + ',1' + datumNu + ',2' + sLineAml[1] + ',3' + sLineAml[2] + ',4' + sLineAml[3] + ',5' + sLineAml[4] + ',6' + sLineAml[5] + ',7' + sLineAml[6] + ',8' + sLineAml[7] + ',9' + sLineAml[8] + ',10' + sLineAml[9] + ',11' + sLineAml[10] + ',12' + sLineAml[11] + ',13' + sLineAml[12]+ ',14' + sLineAml[13] + ',15' + sLineAml[14]+ ',16' + status + '\r\n'   
 
     elif len(sLineAml) == 16:                               # if the data is 15 blocks of data run next line       
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + sLineAml[11] + ',' + sLineAml[12]+ ',' + sLineAml[13] + ',' + sLineAml[14]+ ',' + sLineAml[15]+ ',' + status + '\r\n'   
+        dataToSend = '$SBDAML' + ',1' + datumNu + ',2' + sLineAml[1] + ',3' + sLineAml[2] + ',4' + sLineAml[3] + ',5' + sLineAml[4] + ',6' + sLineAml[5] + ',7' + sLineAml[6] + ',8' + sLineAml[7] + ',9' + sLineAml[8] + ',10' + sLineAml[9] + ',11' + sLineAml[10] + ',12' + sLineAml[11] + ',13' + sLineAml[12]+ ',14' + sLineAml[13] + ',15' + sLineAml[14]+ ',16' + sLineAml[15]+ ',17' + status + '\r\n'   
 
     elif len(sLineAml) == 17:                               # if the data is 16 blocks of data run next line       
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + sLineAml[11] + ',' + sLineAml[12]+ ',' + sLineAml[13] + ',' + sLineAml[14]+ ',' + sLineAml[15]+ ',' + sLineAml[16]+ ',' + status + '\r\n'   
+        dataToSend = '$SBDAML' + ',1' + datumNu + ',2' + sLineAml[1] + ',3' + sLineAml[2] + ',4' + sLineAml[3] + ',5' + sLineAml[4] + ',6' + sLineAml[5] + ',7' + sLineAml[6] + ',8' + sLineAml[7] + ',9' + sLineAml[8] + ',10' + sLineAml[9] + ',11' + sLineAml[10] + ',12' + sLineAml[11] + ',13' + sLineAml[12]+ ',14' + sLineAml[13] + ',15' + sLineAml[14]+ ',16' + sLineAml[15]+ ',17' + sLineAml[16]+ ',18' + status + '\r\n'   
 
     elif len(sLineAml) == 18:                               # if the data is 17 blocks of data run next line        
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + sLineAml[11] + ',' + sLineAml[12]+ ',' + sLineAml[13] + ',' + sLineAml[14]+ ',' + sLineAml[15]+ ',' + sLineAml[16]+ ',' + sLineAml[17]+ ',' + status + '\r\n'   
-
+        dataToSend = '$SBDAML' + ',1' + datumNu + ',2' + sLineAml[1] + ',3' + sLineAml[2] + ',4' + sLineAml[3] + ',5' + sLineAml[4] + ',6' + sLineAml[5] + ',7' + sLineAml[6] + ',8' + sLineAml[7] + ',9' + sLineAml[8] + ',10' + sLineAml[9] + ',11' + sLineAml[10] + ',12' + sLineAml[11] + ',13' + sLineAml[12]+ ',14' + sLineAml[13] + ',15' + sLineAml[14]+ ',16' + sLineAml[15]+ ',17' + sLineAml[16]+ ',18' + sLineAml[17]+ ',19' + status + '\r\n'   
+        
     status = "NC"
     del sLineAml                                            # Clearing out the data from sLineAml so no old data is processed the next time
     return ' ALM OK'+' >> '+ dataToSend                     # Send confirmation + data (AML OK >> parsed data ) to console
