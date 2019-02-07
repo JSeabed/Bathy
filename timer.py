@@ -315,6 +315,7 @@ def serAmlReader():
     
     while True:                                             # loop forever
         b1Line = serAml.readline()                          # read the line from serial ALM and write it to blLine
+        print b1Line
         s1Line = b1Line.decode(encoding='utf_8')            # Decode the data from serial ALM to usable data
         s1Line = s1Line.rstrip(' ' +'\r\n')
 #        global AmlMessage
