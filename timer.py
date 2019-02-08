@@ -269,7 +269,7 @@ def parseAml (raw_mess):
     elif len(sLineAml) == 18:                               # if the data is 17 blocks of data run next line        
         dataToSend = '$SBDAML' + ',1' + datumNu + ',2' + sLineAml[1] + ',3' + sLineAml[2] + ',4' + sLineAml[3] + ',5' + sLineAml[4] + ',6' + sLineAml[5] + ',7' + sLineAml[6] + ',8' + sLineAml[7] + ',9' + sLineAml[8] + ',10' + sLineAml[9] + ',11' + sLineAml[10] + ',12' + sLineAml[11] + ',13' + sLineAml[12]+ ',14' + sLineAml[13] + ',15' + sLineAml[14]+ ',16' + sLineAml[15]+ ',17' + sLineAml[16]+ ',18' + sLineAml[17]+ ',19' + status + '\r\n'   
         
-   # status = "NC"
+    status = "NC"
     del sLineAml                                            # Clearing out the data from sLineAml so no old data is processed the next time
     return ' ALM OK'+' >> '+ dataToSend                     # Send confirmation + data (AML OK >> parsed data ) to console
 
