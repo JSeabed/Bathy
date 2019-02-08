@@ -292,7 +292,7 @@ def serZdaReader():
         pass
         global bZdaOntvangen                                # Requesting access to global variable named bZdaOntvangen
         global status                                       # Requesting access to global variable named status
-        print (' COM1 ZDA: ' +sLine)                        # Write the ZDA data to terminal
+        print (' COM1 ZDA: ' + sLine)                        # Write the ZDA data to terminal
         datumtijd = parseZda(sLine)                         # parse the raw data string into usable variables
         if datumtijd == None:                               # if there is no usable data print "datumtijd is none"
             print('Datumtijd is none:')
