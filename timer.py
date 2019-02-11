@@ -294,7 +294,7 @@ def serZdaReader():
         pass
         global bZdaOntvangen                                # Requesting access to global variable named bZdaOntvangen
         global status                                       # Requesting access to global variable named status
-        print (' COM1 ZDA: ' + sLine)                        # Write the ZDA data to terminal
+       # print (' COM1 ZDA: ' + sLine)                        # Write the ZDA data to terminal
         datumtijd = parseZda(sLine)                         # parse the raw data string into usable variables
         if datumtijd == None:                               # if there is no usable data print "datumtijd is none"
             print('Datumtijd is none:')
@@ -308,7 +308,7 @@ def serZdaReader():
 #                datumtijd = False
 #            else:
                 bZdaOntvangen = True                        # Boolean bZdaOntvangen is set to True
-                print ('ZDA out' + ' ' + datumtijd + '\r\n'+ '\r\n')               # Print the usable date and time to terminal
+                #print ('ZDA out' + ' ' + datumtijd + '\r\n'+ '\r\n')               # Print the usable date and time to terminal
 #                status = "OK"
             
 
@@ -323,15 +323,15 @@ def serAmlReader():
 #        global AmlMessage
 #        AmlMessage = 
         pass
-        print (' COM2 AML: '+s1Line)                        # Print the raw data to console 
+     #   print (' COM2 AML: '+s1Line)                        # Print the raw data to console 
         print ( datetime.datetime.now())                    # Print to console AML was received
         isAmlValid = parseAml(s1Line)                       # turn the raw data into usable data blocks
         global bZdaOntvangen
-        if isAmlValid == None:                              # if the data is garbage print "AML not valid" to console
-            print('AML not valid')
+   #     if isAmlValid == None:                              # if the data is garbage print "AML not valid" to console
+            #print('AML not valid')
         
-        else:
-            print (isAmlValid+ '\r\n'+ '\r\n')              # Print status (OK)to console 
+       # else:
+         #   print (isAmlValid+ '\r\n'+ '\r\n')              # Print status (OK)to console 
 
 
 #////////////////////////////////////// Serial Write loops  /////////////////////////////////////////////
@@ -387,7 +387,7 @@ def UDPsender():
     
     while True:                                                 # Do forever
         
-        print('Send over Ethernet')                             # send to console that data is being sent over ethernet                    
+       # print('Send over Ethernet')                             # send to console that data is being sent over ethernet                    
         global dataToSend; print (dataToSend + '\r\n')          # Get the string to sent over UDP and print it to terminal
         sock1.sendto(dataToSend, (UDP_IP1, UDP_PORT1))          # send the string to the first IP address over UDP
         sock2.sendto(dataToSend, (UDP_IP2, UDP_PORT2))          # Send the string to the second IP adress over UDP
