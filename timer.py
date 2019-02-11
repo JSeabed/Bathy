@@ -54,9 +54,9 @@ status = 'st'
 dataToSend = '$SBDAML,,,,,,,,ST' + '\r\n'
 
 #                   These variables are used to pull the time from the systemclock and use them for tagging
-#sDayNow = ''
-#sMonthNow = ''
-#sYearNow = ''
+sDayNow = ''
+sMonthNow = ''
+sYearNow = ''
 #sHourNow = ''
 #sMinuteNow = ''
 #sSecondNow = ''
@@ -66,9 +66,9 @@ dataToSend = '$SBDAML,,,,,,,,ST' + '\r\n'
 #setTime = ''
 #dateTime = '' 
 
-sDagNu = ''
-sMaandNu = ''
-sJaarNu = ''
+#sDagNu = ''
+#sMaandNu = ''
+#sJaarNu = ''
 sUurNu = ''
 sMinuutNu = ''
 sSecondNu = ''
@@ -157,10 +157,10 @@ def getTime():
     currentTime = currentDateTime.split(',')                    # with split() each comma seperated piece of currentDateTime is written in array currentTime.   
         
     global tijdNu; tijdNu = currentTime[0]                      # Splitting the array into time       
-    global sDagNu; sDagNu = currentTime[1]                      # Day
-    global sMaandNu; sMaandNu = currentTime[2]                  # Month      
-    global sJaarNu; sJaarNu = currentTime[3]                    # And year     
-    global datumNu; datumNu = sDagNu + '-' + sMaandNu + '-' + sJaarNu + ',' + tijdNu   # The combined data of day+month+year makes the variable datumNu (date)     
+    global sDayNow; sDayNow = currentTime[1]                      # Day
+    global sMonthNow; sMonthNow = currentTime[2]                  # Month      
+    global sYearNow; sYearNow = currentTime[3]                    # And year     
+    global datumNu; datumNu = sDayNow + '-' + sMonthNow + '-' + sYearNow + ',' + tijdNu   # The combined data of day+month+year makes the variable datumNu (date)     
 
 
 
