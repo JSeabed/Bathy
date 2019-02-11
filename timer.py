@@ -82,10 +82,10 @@ datumTijd = ''
                             # IP adresses and ports for Ethernet transfers
 
 #UDP_IP1 = "10.68.5.91"      
-UDP_IP1 = "172.16.10.101"
+UDP_IP1 = "172.16.10.50"
 UDP_PORT1 = 5001
 #UDP_IP2 = "10.68.5.92"      
-UDP_IP2 = "172.16.10.102"
+UDP_IP2 = "172.16.10.50"
 UDP_PORT2 = 5001
 
                             # naming the sockets for UDP communication
@@ -273,7 +273,7 @@ def parseAml (raw_mess):
         
     status = "NC"
     del sLineAml                                            # Clearing out the data from sLineAml so no old data is processed the next time
-    return ' ALM OK'+' >> '+ dataToSend                     # Send confirmation + data (AML OK >> parsed data ) to console
+    return ' AML OK'+' >> '+ dataToSend                     # Send confirmation + data (AML OK >> parsed data ) to console
 
 
 #/////////////////////////////////   Serial receive loops   /////////////////////////////////////////////
