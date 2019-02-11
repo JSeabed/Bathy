@@ -146,7 +146,7 @@ def clearAml():
     global status                                           # Requesting access to global variable named status
     global datumNu; datumNu = ''                            # Requesting access to global variable named datumNu, then empty it
     global dataToSend; dataToSend = '$SBDAML,,,,,,,,' + status + '\r\n'     # Requesting access to global variable named datToSend, then put an default empty string in it
-    print ('AML cleared\r\n')                               # Show a message (AML cleared) in the terminal that started the program
+  #  print ('AML cleared\r\n')                               # Show a message (AML cleared) in the terminal that started the program
 
                         #Pulling the time from the system and write it into a usable variable
 
@@ -294,7 +294,7 @@ def serZdaReader():
         pass
         global bZdaOntvangen                                # Requesting access to global variable named bZdaOntvangen
         global status                                       # Requesting access to global variable named status
-        print (' COM1 ZDA: ' + sLine)                        # Write the ZDA data to terminal
+        #print (' COM1 ZDA: ' + sLine)                        # Write the ZDA data to terminal
         datumtijd = parseZda(sLine)                         # parse the raw data string into usable variables
         if datumtijd == None:                               # if there is no usable data print "datumtijd is none"
             print('Datumtijd is none:')
@@ -323,15 +323,15 @@ def serAmlReader():
 #        global AmlMessage
 #        AmlMessage = 
         pass
-        print (' COM2 AML: '+s1Line)                        # Print the raw data to console 
-        print ( datetime.datetime.now())                    # Print to console AML was received
+        #print (' COM2 AML: '+s1Line)                        # Print the raw data to console 
+        #print ( datetime.datetime.now())                    # Print to console AML was received
         isAmlValid = parseAml(s1Line)                       # turn the raw data into usable data blocks
         global bZdaOntvangen
         if isAmlValid == None:                              # if the data is garbage print "AML not valid" to console
             print('AML not valid')
         
         else:
-            print (isAmlValid+ '\r\n'+ '\r\n')              # Print status (OK)to console 
+           # print (isAmlValid+ '\r\n'+ '\r\n')              # Print status (OK)to console 
 
 
 #////////////////////////////////////// Serial Write loops  /////////////////////////////////////////////
@@ -355,7 +355,7 @@ def pulse(channel):
     global bZdaOntvangen                                    # Getting some global variables and stuff
     global datumTijd
     global status
-    print (bZdaOntvangen)                                   #Print the current value of bZdaOntvangen to the terminal
+    #print (bZdaOntvangen)                                   #Print the current value of bZdaOntvangen to the terminal
 
 
 
@@ -387,10 +387,11 @@ def UDPsender():
     
     while True:                                                 # Do forever
         
-        print('Send over Ethernet')                             # send to console that data is being sent over ethernet                    
+        #print('Send over Ethernet')                             # send to console that data is being sent over ethernet                    
         global dataToSend; print (dataToSend + '\r\n')          # Get the string to sent over UDP and print it to terminal
         sock1.sendto(dataToSend, (UDP_IP1, UDP_PORT1))          # send the string to the first IP address over UDP
         sock2.sendto(dataToSend, (UDP_IP2, UDP_PORT2))          # Send the string to the second IP adress over UDP
+        print('Send over Ethernet')
         clearAml()                                              # Clear the string to avoid duplicates 
         time.sleep(1)                                           # Wait for a second (minus runtime of the code) and repeat
 
