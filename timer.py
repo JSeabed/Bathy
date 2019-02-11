@@ -61,7 +61,7 @@ sYearNow = ''
 #sMinuteNow = ''
 #sSecondNow = ''
 #sMSecondNow = ''
-#dateNow = ''
+dateNow = ''
 #timeNow = ''
 #setTime = ''
 #dateTime = '' 
@@ -69,11 +69,11 @@ sYearNow = ''
 #sDagNu = ''
 #sMaandNu = ''
 #sJaarNu = ''
-sUurNu = ''
+#sUurNu = ''             isnt being used at all
 sMinuutNu = ''
 sSecondNu = ''
 sMSecondNu = ''
-datumNu = ''
+#datumNu = ''
 tijdNu = ''
 setTime = ''
 datumTijd = ''
@@ -144,7 +144,7 @@ serAml.isOpen()                                             # Open serial port
 
 def clearAml():
     global status                                           # Requesting access to global variable named status
-    global datumNu; datumNu = ''                            # Requesting access to global variable named datumNu, then empty it
+    global dateNow; dateNow = ''                            # Requesting access to global variable named dateNow, then empty it
     global dataToSend; dataToSend = '$SBDAML,,,,,,,,' + status + '\r\n'     # Requesting access to global variable named datToSend, then put an default empty string in it
     print ('AML cleared\r\n')                               # Show a message (AML cleared) in the terminal that started the program
 
@@ -160,7 +160,7 @@ def getTime():
     global sDayNow; sDayNow = currentTime[1]                      # Day
     global sMonthNow; sMonthNow = currentTime[2]                  # Month      
     global sYearNow; sYearNow = currentTime[3]                    # And year     
-    global datumNu; datumNu = sDayNow + '-' + sMonthNow + '-' + sYearNow + ',' + tijdNu   # The combined data of day+month+year makes the variable datumNu (date)     
+    global dateNow; dateNow = sDayNow + '-' + sMonthNow + '-' + sYearNow + ',' + tijdNu   # The combined data of day+month+year makes the variable dateNow (date)     
 
 
 
@@ -197,7 +197,7 @@ def parseZda(raw_message):
         global sJaar; sJaar = sLines[4]                         # the 3th string of sLines is the year     
         global datum; datum = sJaar + '-' + sMaand + '-' + sDay # The combined data of day+month+year makes the variable datum (date)     
 #        return ' ZDA OK' + ' >> ' +datum + ' ' + tijd           # Send confirmation + data (ZDA OK >> parsed data ) to console and Com1
-        global datumTijd; datumTijd = "'" + datum + ' ' + tijd +"'" # The combined data of day+month+year makes the variable datumNu (date)
+        global datumTijd; datumTijd = "'" + datum + ' ' + tijd +"'" # The combined data of day+month+year makes the variable dateNow (date)
 #        print (datumTijd)
 #        status = "00"
         return ' ZDA OK' + ' >> ' + datumTijd           # Send confirmation + data (ZDA OK >> parsed data ) to console and Com1
@@ -220,56 +220,56 @@ def parseAml (raw_mess):
         print('something weird')                                     #not normal AML sensor info so forwarding to designated IP adress
         sock1.sendto(raw_mess + '\r\n', (UDP_IP1, UDP_PORT1))          # send the string to the first IP address over UDP
         sock2.sendto(raw_mess + '\r\n', (UDP_IP2, UDP_PORT2)) 
-    getTime()                                               # Get the current system time and put it in datumNu
+    getTime()                                               # Get the current system time and put it in dateNow
     global dataToSend                                       # make dataToSend (variable) usable in this function
     global status                                           # Do the same as above, but for status
 
                         # This bit customises the string to the amount of data blocks received from the AML
                         
     if len(sLineAml) == 4:                                  # if the data is 3 blocks of data run next line    
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + status + '\r\n'    # Create a string of data   
+        dataToSend = '$SBDAML' + ',' + dateNow + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + status + '\r\n'    # Create a string of data   
 
     elif len(sLineAml) == 5:                                # if the data is 4 blocks of data run next line    
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + status + '\r\n'  
+        dataToSend = '$SBDAML' + ',' + dateNow + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + status + '\r\n'  
 
     elif len(sLineAml) == 6:                                # if the data is 5 blocks of data run next line
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + status + '\r\n'  
+        dataToSend = '$SBDAML' + ',' + dateNow + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + status + '\r\n'  
 
     elif len(sLineAml) == 7:                                # if the data is 6 blocks of data run next line
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + status + '\r\n'  
+        dataToSend = '$SBDAML' + ',' + dateNow + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + status + '\r\n'  
 
     elif len(sLineAml) == 8:                                # if the data is 7 blocks of data run next line
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + status + '\r\n'
+        dataToSend = '$SBDAML' + ',' + dateNow + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + status + '\r\n'
 
     elif len(sLineAml) == 9:                                # if the data is 8 blocks of data run next line 
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + status + '\r\n'   
+        dataToSend = '$SBDAML' + ',' + dateNow + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + status + '\r\n'   
 
     elif len(sLineAml) == 10:                               # if the data is 9 blocks of data run next line       
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + status+ '\r\n'    
+        dataToSend = '$SBDAML' + ',' + dateNow + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + status+ '\r\n'    
 
     elif len(sLineAml) == 11:                               # if the data is 10 blocks of data run next line        
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + status + '\r\n'   
+        dataToSend = '$SBDAML' + ',' + dateNow + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + status + '\r\n'   
 
     elif len(sLineAml) == 12:                               # if the data is 11 blocks of data run next line        
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + sLineAml[11] + ',' + status + '\r\n'    
+        dataToSend = '$SBDAML' + ',' + dateNow + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + sLineAml[11] + ',' + status + '\r\n'    
 
     elif len(sLineAml) == 13:                               # if the data is 12 blocks of data run next line        
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + sLineAml[11] + ',' + sLineAml[12]+ ',' + status + '\r\n'   
+        dataToSend = '$SBDAML' + ',' + dateNow + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + sLineAml[11] + ',' + sLineAml[12]+ ',' + status + '\r\n'   
 
     elif len(sLineAml) == 14:                               # if the data is 13 blocks of data run next line        
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + sLineAml[11] + ',' + sLineAml[12]+ ',' + sLineAml[13] + ',' + status + '\r\n'   
+        dataToSend = '$SBDAML' + ',' + dateNow + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + sLineAml[11] + ',' + sLineAml[12]+ ',' + sLineAml[13] + ',' + status + '\r\n'   
 
     elif len(sLineAml) == 15:                               # if the data is 14 blocks of data run next line       
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + sLineAml[11] + ',' + sLineAml[12]+ ',' + sLineAml[13] + ',' + sLineAml[14]+ ',' + status + '\r\n'   
+        dataToSend = '$SBDAML' + ',' + dateNow + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + sLineAml[11] + ',' + sLineAml[12]+ ',' + sLineAml[13] + ',' + sLineAml[14]+ ',' + status + '\r\n'   
 
     elif len(sLineAml) == 16:                               # if the data is 15 blocks of data run next line       
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + sLineAml[11] + ',' + sLineAml[12]+ ',' + sLineAml[13] + ',' + sLineAml[14]+ ',' + sLineAml[15]+ ',' + status + '\r\n'   
+        dataToSend = '$SBDAML' + ',' + dateNow + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + sLineAml[11] + ',' + sLineAml[12]+ ',' + sLineAml[13] + ',' + sLineAml[14]+ ',' + sLineAml[15]+ ',' + status + '\r\n'   
 
     elif len(sLineAml) == 17:                               # if the data is 16 blocks of data run next line       
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + sLineAml[11] + ',' + sLineAml[12]+ ',' + sLineAml[13] + ',' + sLineAml[14]+ ',' + sLineAml[15]+ ',' + sLineAml[16]+ ',' + status + '\r\n'   
+        dataToSend = '$SBDAML' + ',' + dateNow + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + sLineAml[11] + ',' + sLineAml[12]+ ',' + sLineAml[13] + ',' + sLineAml[14]+ ',' + sLineAml[15]+ ',' + sLineAml[16]+ ',' + status + '\r\n'   
 
     elif len(sLineAml) == 18:                               # if the data is 17 blocks of data run next line        
-        dataToSend = '$SBDAML' + ',' + datumNu + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + sLineAml[11] + ',' + sLineAml[12]+ ',' + sLineAml[13] + ',' + sLineAml[14]+ ',' + sLineAml[15]+ ',' + sLineAml[16]+ ',' + sLineAml[17]+ ',' + status + '\r\n'   
+        dataToSend = '$SBDAML' + ',' + dateNow + ',' + sLineAml[1] + ',' + sLineAml[2] + ',' + sLineAml[3] + ',' + sLineAml[4] + ',' + sLineAml[5] + ',' + sLineAml[6] + ',' + sLineAml[7] + ',' + sLineAml[8] + ',' + sLineAml[9] + ',' + sLineAml[10] + ',' + sLineAml[11] + ',' + sLineAml[12]+ ',' + sLineAml[13] + ',' + sLineAml[14]+ ',' + sLineAml[15]+ ',' + sLineAml[16]+ ',' + sLineAml[17]+ ',' + status + '\r\n'   
         
     status = "NC"
     del sLineAml                                            # Clearing out the data from sLineAml so no old data is processed the next time
