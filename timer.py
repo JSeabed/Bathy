@@ -62,21 +62,18 @@ sYearNow = ''
 #sSecondNow = ''
 #sMSecondNow = ''
 dateNow = ''
-#timeNow = ''
+timeNow = ''
 #setTime = ''
-#dateTime = '' 
+dateTime = '' 
 
 #sDagNu = ''
 #sMaandNu = ''
 #sJaarNu = ''
 #sUurNu = ''             isnt being used at all
-sMinuutNu = ''
-sSecondNu = ''
-sMSecondNu = ''
 #datumNu = ''
-tijdNu = ''
-setTime = ''
-datumTijd = ''
+#tijdNu = ''
+setTime = '' 
+#datumTijd = ''
 #AmlMessage = ''
 
                             # IP adresses and ports for Ethernet transfers
@@ -156,11 +153,11 @@ def getTime():
     currentDateTime = currentDateTimeRaw.strftime('%H:%M:%S.%f,%d,%m,%Y')           # puts the DateTime in a specific format
     currentTime = currentDateTime.split(',')                    # with split() each comma seperated piece of currentDateTime is written in array currentTime.   
         
-    global tijdNu; tijdNu = currentTime[0]                      # Splitting the array into time       
+    global timeNow; timeNow = currentTime[0]                      # Splitting the array into time       
     global sDayNow; sDayNow = currentTime[1]                      # Day
     global sMonthNow; sMonthNow = currentTime[2]                  # Month      
     global sYearNow; sYearNow = currentTime[3]                    # And year     
-    global dateNow; dateNow = sDayNow + '-' + sMonthNow + '-' + sYearNow + ',' + tijdNu   # The combined data of day+month+year makes the variable dateNow (date)     
+    global dateNow; dateNow = sDayNow + '-' + sMonthNow + '-' + sYearNow + ',' + timeNow   # The combined data of day+month+year makes the variable dateNow (date)     
 
 
 
@@ -197,10 +194,10 @@ def parseZda(raw_message):
         global sJaar; sJaar = sLines[4]                         # the 3th string of sLines is the year     
         global datum; datum = sJaar + '-' + sMaand + '-' + sDay # The combined data of day+month+year makes the variable datum (date)     
 #        return ' ZDA OK' + ' >> ' +datum + ' ' + tijd           # Send confirmation + data (ZDA OK >> parsed data ) to console and Com1
-        global datumTijd; datumTijd = "'" + datum + ' ' + tijd +"'" # The combined data of day+month+year makes the variable dateNow (date)
-#        print (datumTijd)
+        global dateTime; dateTime = "'" + datum + ' ' + tijd +"'" # The combined data of day+month+year makes the variable dateNow (date)
+#        print (dateTime)
 #        status = "00"
-        return ' ZDA OK' + ' >> ' + datumTijd           # Send confirmation + data (ZDA OK >> parsed data ) to console and Com1
+        return ' ZDA OK' + ' >> ' + dateTime           # Send confirmation + data (ZDA OK >> parsed data ) to console and Com1
 
     except Exception as e:                                      # if something goes wrong print the error to console      
         print ('Exception: ' + e)
@@ -295,9 +292,9 @@ def serZdaReader():
         global bZdaOntvangen                                # Requesting access to global variable named bZdaOntvangen
         global status                                       # Requesting access to global variable named status
        # print (' COM1 ZDA: ' + sLine)                        # Write the ZDA data to terminal
-        datumtijd = parseZda(sLine)                         # parse the raw data string into usable variables
-        if datumtijd == None:                               # if there is no usable data print "datumtijd is none"
-            print('Datumtijd is none:')
+        dateTime = parseZda(sLine)                         # parse the raw data string into usable variables
+        if dateTime == None:                               # if there is no usable data print "dateTime is none"
+            print('dateTime is none:')
             bZdaOntvangen = False                           # Boolean bZdaOntvangen is set to False
             status = "IZ"                                   # Change the status to IZ (Invalid ZDA)
         
@@ -305,10 +302,10 @@ def serZdaReader():
 
 #            if status == "NZ":
 #                status = "FC"
-#                datumtijd = False
+#                dateTime = False
 #            else:
                 bZdaOntvangen = True                        # Boolean bZdaOntvangen is set to True
-                #print ('ZDA out' + ' ' + datumtijd + '\r\n'+ '\r\n')               # Print the usable date and time to terminal
+                #print ('ZDA out' + ' ' + dateTime + '\r\n'+ '\r\n')               # Print the usable date and time to terminal
 #                status = "OK"
             
 
@@ -353,7 +350,7 @@ def pulse(channel):
     print('trigger' )                                       # Give the terminal that PPS was received
     print (datetime.datetime.now())                         # Print to console the current time
     global bZdaOntvangen                                    # Getting some global variables and stuff
-    global datumTijd
+    global dateTime
     global status
     print (bZdaOntvangen)                                   #Print the current value of bZdaOntvangen to the terminal
 
@@ -361,8 +358,8 @@ def pulse(channel):
 
     if bZdaOntvangen == True:                                   # if ZDAontvangen is true
         bZdaOntvangen = False                                       # ZDAontvangnen is set to false (as we are doing something with the data it's not fresh anymore
-        os.system('date -s %s' % datumTijd)                         # Sets the system time to datumtijd (the time set per ZDA)
-        datumtijd = False                                           # datumTijd is cleared out so when we receive another puls before  ZDA we won't get stuck in the past
+        os.system('date -s %s' % dateTime)                         # Sets the system time to dateTime (the time set per ZDA)
+        dateTime = False                                           # dateTime is cleared out so when we receive another puls before  ZDA we won't get stuck in the past
         status = "OK"                                               # status is set to ok as all seems ok
     else:                                                       # If ZDAontvangen was false 
         status = 'NZ'                                               # Status is set to NZ (no Zda) 
