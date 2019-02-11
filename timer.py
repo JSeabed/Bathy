@@ -215,7 +215,7 @@ def parseAml (raw_mess):
     global UDP_IP2
     global UDP_PORT2   
     global sLineAml; sLineAml = raw_mess.split('  ')        # with split() each space seperated piece of raw_mess is written in array sLinesAml. 
-    print sLineAml
+    #print sLineAml
     if len(sLineAml) < 4:                                   # if the data is shorter then 5 blocks of data run next line
         print('something weird')                                     #not normal AML sensor info so forwarding to designated IP adress
         sock1.sendto(raw_mess + '\r\n', (UDP_IP1, UDP_PORT1))          # send the string to the first IP address over UDP
@@ -317,7 +317,7 @@ def serAmlReader():
     
     while True:                                             # loop forever
         b1Line = serAml.readline()                          # read the line from serial ALM and write it to blLine
-        print b1Line
+#        print b1Line
         s1Line = b1Line.decode(encoding='utf_8')            # Decode the data from serial ALM to usable data
         s1Line = s1Line.rstrip(' ' +'\r\n')
 #        global AmlMessage
