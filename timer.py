@@ -190,9 +190,9 @@ def parseZda(raw_message):
         if len(sLines[2]) < 2 or len(sLines[3]) < 2 or len(sLines[4]) < 2:      # if string 2, 3 or 4 is longer then 2 digits stop the data
             return None
         global sDay; sDay = sLines[2]                           # the 3th string of sLines is the day
-        global sMaand; sMaand = sLines[3]                       # the 4th string of sLines is the month      
+        global sMonth; sMonth = sLines[3]                       # the 4th string of sLines is the month      
         global sJaar; sJaar = sLines[4]                         # the 3th string of sLines is the year     
-        global datum; datum = sJaar + '-' + sMaand + '-' + sDay # The combined data of day+month+year makes the variable datum (date)     
+        global datum; datum = sJaar + '-' + sMonth + '-' + sDay # The combined data of day+month+year makes the variable datum (date)     
         global dateTime; dateTime = "'" + datum + ' ' + tijd +"'" # The combined data of day+month+year makes the variable dateNow (date)
         return ' ZDA OK' + ' >> ' + dateTime           # Send confirmation + data (ZDA OK >> parsed data ) to console and Com1
 
