@@ -36,7 +36,7 @@ sMinute = ''
 #sSecond = ''
 #sMSecond = ''
 date = ''
-#time = ''
+time = ''
 
 #sDag = ''
 #sMaand = ''
@@ -46,7 +46,7 @@ date = ''
 sSecond = ''
 sMSecond = ''
 #datum = ''
-tijd = ''
+#tijd = ''
 
 #                   These variables are for the parsing of the AML data
 
@@ -180,12 +180,12 @@ def parseZda(raw_message):
         if len(sLines[1]) < 9:                              # or more then 9
             return None                                     # do nothing
         
-        tempTijd = sLines[1]                                # tempTijd is the 2nd string of data from array sLines 
-        global sHour; sHour = tempTijd[:2]                    # the first two digits are the hours
-        global sMinute; sMinute = tempTijd[2:4]             # digits 3 and 4 are minutes  
-        global sSecond; sSecond = tempTijd[4:6]             # digits 5 and 6 are seconds  
-        global sMSecond; sMSecond = tempTijd[7:]            # all digits from 7 and up are milliseconds    
-        global tijd; tijd = sHour + ':' + sMinute + ':' + sSecond + '.' + sMSecond    #Time in format HH:MM:SS        
+        tempTime = sLines[1]                                # tempTijd is the 2nd string of data from array sLines 
+        global sHour; sHour = tempTime[:2]                    # the first two digits are the hours
+        global sMinute; sMinute = tempTime[2:4]             # digits 3 and 4 are minutes  
+        global sSecond; sSecond = tempTime[4:6]             # digits 5 and 6 are seconds  
+        global sMSecond; sMSecond = tempTime[7:]            # all digits from 7 and up are milliseconds    
+        global time; time = sHour + ':' + sMinute + ':' + sSecond + '.' + sMSecond    #Time in format HH:MM:SS        
         
         if len(sLines[2]) < 2 or len(sLines[3]) < 2 or len(sLines[4]) < 2:      # if string 2, 3 or 4 is longer then 2 digits stop the data
             return None
@@ -193,7 +193,7 @@ def parseZda(raw_message):
         global sMonth; sMonth = sLines[3]                       # the 4th string of sLines is the month      
         global sYear; sYear = sLines[4]                         # the 3th string of sLines is the year     
         global date; date = sYear + '-' + sMonth + '-' + sDay # The combined data of day+month+year makes the variable date (date)     
-        global dateTime; dateTime = "'" + date + ' ' + tijd +"'" # The combined data of day+month+year makes the variable dateNow (date)
+        global dateTime; dateTime = "'" + date + ' ' + time +"'" # The combined data of day+month+year makes the variable dateNow (date)
         return ' ZDA OK' + ' >> ' + dateTime           # Send confirmation + data (ZDA OK >> parsed data ) to console and Com1
 
     except Exception as e:                                      # if something goes wrong print the error to console      
