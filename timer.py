@@ -193,10 +193,7 @@ def parseZda(raw_message):
         global sMaand; sMaand = sLines[3]                       # the 4th string of sLines is the month      
         global sJaar; sJaar = sLines[4]                         # the 3th string of sLines is the year     
         global datum; datum = sJaar + '-' + sMaand + '-' + sDay # The combined data of day+month+year makes the variable datum (date)     
-#        return ' ZDA OK' + ' >> ' +datum + ' ' + tijd           # Send confirmation + data (ZDA OK >> parsed data ) to console and Com1
         global dateTime; dateTime = "'" + datum + ' ' + tijd +"'" # The combined data of day+month+year makes the variable dateNow (date)
-#        print (dateTime)
-#        status = "00"
         return ' ZDA OK' + ' >> ' + dateTime           # Send confirmation + data (ZDA OK >> parsed data ) to console and Com1
 
     except Exception as e:                                      # if something goes wrong print the error to console      
@@ -212,9 +209,7 @@ def parseAml (raw_mess):
     global UDP_IP2
     global UDP_PORT2   
     global sLineAml; sLineAml = raw_mess.split('  ')        # with split() each space seperated piece of raw_mess is written in array sLinesAml. 
-    #print sLineAml
     if len(sLineAml) < 4:                                   # if the data is shorter then 5 blocks of data run next line
-        print('something weird')                                     #not normal AML sensor info so forwarding to designated IP adress
         sock1.sendto(raw_mess + '\r\n', (UDP_IP1, UDP_PORT1))          # send the string to the first IP address over UDP
         sock2.sendto(raw_mess + '\r\n', (UDP_IP2, UDP_PORT2)) 
     getTime()                                               # Get the current system time and put it in dateNow
@@ -274,9 +269,6 @@ def parseAml (raw_mess):
 
 
 #/////////////////////////////////   Serial receive loops   /////////////////////////////////////////////
-
-
-                                #Serial ZDA (Com1)
     
 def serZdaReader():
      
@@ -299,14 +291,8 @@ def serZdaReader():
             status = "IZ"                                   # Change the status to IZ (Invalid ZDA)
         
         else:                                               # If the data is usable 
-
-#            if status == "NZ":
-#                status = "FC"
-#                dateTime = False
-#            else:
                 bZdaOntvangen = True                        # Boolean bZdaOntvangen is set to True
-                #print ('ZDA out' + ' ' + dateTime + '\r\n'+ '\r\n')               # Print the usable date and time to terminal
-#                status = "OK"
+
             
 
                             #Serial AML (Com2)
@@ -314,14 +300,10 @@ def serAmlReader():
     
     while True:                                             # loop forever
         b1Line = serAml.readline()                          # read the line from serial ALM and write it to blLine
-#        print b1Line
         s1Line = b1Line.decode(encoding='utf_8')            # Decode the data from serial ALM to usable data
         s1Line = s1Line.rstrip(' ' +'\r\n')
-#        global AmlMessage
-#        AmlMessage = 
         pass
-     #   print (' COM2 AML: '+s1Line)                        # Print the raw data to console 
-        print ( datetime.datetime.now())                    # Print to console AML was received
+        #print ( datetime.datetime.now())                    # Print to console AML was received
         isAmlValid = parseAml(s1Line)                       # turn the raw data into usable data blocks
         global bZdaOntvangen
    #     if isAmlValid == None:                              # if the data is garbage print "AML not valid" to console
@@ -355,9 +337,8 @@ def pulse(channel):
     print (bZdaOntvangen)                                   #Print the current value of bZdaOntvangen to the terminal
 
 
-
+#checking if the data has been received and setting the system time to the received date. after setting the time the statement gets reset to False for checking in the next cycle. status is also 
     if bZdaOntvangen == True:                                   # if ZDAontvangen is true
-       # bZdaOntvangen = False                                       # ZDAontvangnen is set to false (as we are doing something with the data it's not fresh anymore
         os.system('date -s %s' % dateTime)                         # Sets the system time to dateTime (the time set per ZDA)
         dateTime = False                                           # dateTime is cleared out so when we receive another puls before  ZDA we won't get stuck in the past
         status = "OK"                                               # status is set to ok as all seems ok
