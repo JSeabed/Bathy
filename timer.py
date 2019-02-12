@@ -31,8 +31,8 @@ import string
 sDay = ''
 sMonth = ''
 sYear = ''
-#sHour = ''
-#sMinute = ''
+sHour = ''
+sMinute = ''
 #sSecond = ''
 #sMSecond = ''
 #date = ''
@@ -41,8 +41,8 @@ sYear = ''
 #sDag = ''
 #sMaand = ''
 #sJaar = ''
-sUur = ''
-sMinuut = ''
+#sUur = ''
+#sMinuut = ''
 sSecond = ''
 sMSecond = ''
 datum = ''
@@ -181,11 +181,11 @@ def parseZda(raw_message):
             return None                                     # do nothing
         
         tempTijd = sLines[1]                                # tempTijd is the 2nd string of data from array sLines 
-        global sUur; sUur = tempTijd[:2]                    # the first two digits are the hours
-        global sMinuut; sMinuut = tempTijd[2:4]             # digits 3 and 4 are minutes  
+        global sHour; sHour = tempTijd[:2]                    # the first two digits are the hours
+        global sMinute; sMinute = tempTijd[2:4]             # digits 3 and 4 are minutes  
         global sSecond; sSecond = tempTijd[4:6]             # digits 5 and 6 are seconds  
         global sMSecond; sMSecond = tempTijd[7:]            # all digits from 7 and up are milliseconds    
-        global tijd; tijd = sUur + ':' + sMinuut + ':' + sSecond + '.' + sMSecond    #Time in format HH:MM:SS        
+        global tijd; tijd = sHour + ':' + sMinute + ':' + sSecond + '.' + sMSecond    #Time in format HH:MM:SS        
         
         if len(sLines[2]) < 2 or len(sLines[3]) < 2 or len(sLines[4]) < 2:      # if string 2, 3 or 4 is longer then 2 digits stop the data
             return None
