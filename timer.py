@@ -29,8 +29,8 @@ import string
 #                   These variables are for the parsing of the ZDA data
 
 sDay = ''
-#sMonth = ''
-#sYear = ''
+sMonth = ''
+sYear = ''
 #sHour = ''
 #sMinute = ''
 #sSecond = ''
@@ -39,8 +39,8 @@ sDay = ''
 #time = ''
 
 #sDag = ''
-sMaand = ''
-sJaar = ''
+#sMaand = ''
+#sJaar = ''
 sUur = ''
 sMinuut = ''
 sSecond = ''
@@ -191,8 +191,8 @@ def parseZda(raw_message):
             return None
         global sDay; sDay = sLines[2]                           # the 3th string of sLines is the day
         global sMonth; sMonth = sLines[3]                       # the 4th string of sLines is the month      
-        global sJaar; sJaar = sLines[4]                         # the 3th string of sLines is the year     
-        global datum; datum = sJaar + '-' + sMonth + '-' + sDay # The combined data of day+month+year makes the variable datum (date)     
+        global sYear; sYear = sLines[4]                         # the 3th string of sLines is the year     
+        global datum; datum = sYear + '-' + sMonth + '-' + sDay # The combined data of day+month+year makes the variable datum (date)     
         global dateTime; dateTime = "'" + datum + ' ' + tijd +"'" # The combined data of day+month+year makes the variable dateNow (date)
         return ' ZDA OK' + ' >> ' + dateTime           # Send confirmation + data (ZDA OK >> parsed data ) to console and Com1
 
