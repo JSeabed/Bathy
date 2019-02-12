@@ -347,8 +347,8 @@ def writeCom2(textToWrite):                                                 # Se
 
                         #When pulse() is used this is what happens
 def pulse(channel):
-    print('trigger' )                                       # Give the terminal that PPS was received
-    print (datetime.datetime.now())                         # Print to console the current time
+    #print('trigger' )                                       # Give the terminal that PPS was received
+    #print (datetime.datetime.now())                         # Print to console the current time
     global bZdaOntvangen                                    # Getting some global variables and stuff
     global dateTime
     global status
