@@ -357,10 +357,11 @@ def pulse(channel):
 
 
     if bZdaOntvangen == True:                                   # if ZDAontvangen is true
-        bZdaOntvangen = False                                       # ZDAontvangnen is set to false (as we are doing something with the data it's not fresh anymore
+       # bZdaOntvangen = False                                       # ZDAontvangnen is set to false (as we are doing something with the data it's not fresh anymore
         os.system('date -s %s' % dateTime)                         # Sets the system time to dateTime (the time set per ZDA)
         dateTime = False                                           # dateTime is cleared out so when we receive another puls before  ZDA we won't get stuck in the past
         status = "OK"                                               # status is set to ok as all seems ok
+        bZdaOntvangen = False
     else:                                                       # If ZDAontvangen was false 
         status = 'NZ'                                               # Status is set to NZ (no Zda) 
         bZdaOntvangen = False                                       # Zda ontvangen is set to False (just to be sure)
