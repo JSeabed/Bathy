@@ -35,7 +35,7 @@ sHour = ''
 sMinute = ''
 #sSecond = ''
 #sMSecond = ''
-#date = ''
+date = ''
 #time = ''
 
 #sDag = ''
@@ -45,7 +45,7 @@ sMinute = ''
 #sMinuut = ''
 sSecond = ''
 sMSecond = ''
-datum = ''
+#datum = ''
 tijd = ''
 
 #                   These variables are for the parsing of the AML data
@@ -192,8 +192,8 @@ def parseZda(raw_message):
         global sDay; sDay = sLines[2]                           # the 3th string of sLines is the day
         global sMonth; sMonth = sLines[3]                       # the 4th string of sLines is the month      
         global sYear; sYear = sLines[4]                         # the 3th string of sLines is the year     
-        global datum; datum = sYear + '-' + sMonth + '-' + sDay # The combined data of day+month+year makes the variable datum (date)     
-        global dateTime; dateTime = "'" + datum + ' ' + tijd +"'" # The combined data of day+month+year makes the variable dateNow (date)
+        global date; date = sYear + '-' + sMonth + '-' + sDay # The combined data of day+month+year makes the variable date (date)     
+        global dateTime; dateTime = "'" + date + ' ' + tijd +"'" # The combined data of day+month+year makes the variable dateNow (date)
         return ' ZDA OK' + ' >> ' + dateTime           # Send confirmation + data (ZDA OK >> parsed data ) to console and Com1
 
     except Exception as e:                                      # if something goes wrong print the error to console      
