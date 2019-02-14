@@ -33,51 +33,22 @@ sMonth = ''
 sYear = ''
 sHour = ''
 sMinute = ''
-#sSecond = ''
-#sMSecond = ''
 date = ''
 realTime = ''
-
-#sDag = ''
-#sMaand = ''
-#sJaar = ''
-#sUur = ''
-#sMinuut = ''
 sSecond = ''
 sMSecond = ''
-#datum = ''
-#tijd = ''
-
 #                   These variables are for the parsing of the AML data
-
 status = 'st'
 dataToSend = '$SBDAML,,,,,,,,ST' + '\r\n'
-
 #                   These variables are used to pull the time from the systemclock and use them for tagging
 sDayNow = ''
 sMonthNow = ''
 sYearNow = ''
-#sHourNow = ''
-#sMinuteNow = ''
-#sSecondNow = ''
-#sMSecondNow = ''
 dateNow = ''
 timeNow = ''
-#setTime = ''
 dateTime = '' 
-
-#sDagNu = ''
-#sMaandNu = ''
-#sJaarNu = ''
-#sUurNu = ''             isnt being used at all
-#datumNu = ''
-#tijdNu = ''
 setTime = '' 
-#datumTijd = ''
-#AmlMessage = ''
-
                             # IP adresses and ports for Ethernet transfers
-
 UDP_IP1 = "10.68.5.91"      
 #UDP_IP1 = "172.16.10.50"
 UDP_PORT1 = 5001
@@ -371,7 +342,7 @@ def UDPsender():
         sock1.sendto(dataToSend, (UDP_IP1, UDP_PORT1))          # send the string to the first IP address over UDP
         sock2.sendto(dataToSend, (UDP_IP2, UDP_PORT2))          # Send the string to the second IP adress over UDP
         clearAml()                                              # Clear the string to avoid duplicates 
-        time.sleep(1)                                           # Wait for a second (minus runtime of the code) and repeat
+        time.sleep(2)                                           # Wait for a second (minus runtime of the code) and repeat
 
 
 #//////////////////////////////////// Serial loop    ////////////////////////////////////////////////////
