@@ -317,6 +317,7 @@ def pulse(channel):
     else:                                                       # If ZDAontvangen was false 
         status = 'NZ'                                               # Status is set to NZ (no Zda) 
         bZdaOntvangen = False                                       # Zda ontvangen is set to False (just to be sure)
+        sleep(1)
 
     
                         #This is the detector that sees the pin goes high then starts the function pulse
@@ -342,7 +343,7 @@ def UDPsender():
         sock1.sendto(dataToSend, (UDP_IP1, UDP_PORT1))          # send the string to the first IP address over UDP
         sock2.sendto(dataToSend, (UDP_IP2, UDP_PORT2))          # Send the string to the second IP adress over UDP
         clearAml()                                              # Clear the string to avoid duplicates 
-        time.sleep(2)                                           # Wait for a second (minus runtime of the code) and repeat
+        time.sleep(1)                                           # Wait for a second (minus runtime of the code) and repeat
 
 
 #//////////////////////////////////// Serial loop    ////////////////////////////////////////////////////
