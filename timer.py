@@ -313,13 +313,11 @@ def pulse(channel):
         os.system('date -s %s' % dateTime)                         # Sets the system time to dateTime (the time set per ZDA)
         dateTime = False                                           # dateTime is cleared out so when we receive another puls before  ZDA we won't get stuck in the past
         status = "OK"                                               # status is set to ok as all seems ok
-        bZdaOntvangen = False
+       # bZdaOntvangen = False
     else:                                                       # If ZDAontvangen was false 
         status = 'NZ'                                               # Status is set to NZ (no Zda) 
         bZdaOntvangen = False                                       # Zda ontvangen is set to False (just to be sure)
-        time.sleep(1)
-
-    
+          
                         #This is the detector that sees the pin goes high then starts the function pulse
 GPIO.add_event_detect("P9_42", GPIO.RISING, callback=pulse, bouncetime = 300)  # When the triggerpin goes high start function pulse()
 
