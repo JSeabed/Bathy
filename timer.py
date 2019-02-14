@@ -317,7 +317,7 @@ def pulse(channel):
     else:                                                       # If ZDAontvangen was false 
         status = 'NZ'                                               # Status is set to NZ (no Zda) 
         bZdaOntvangen = False                                       # Zda ontvangen is set to False (just to be sure)
-        sleep(1)
+        time.sleep(1)
 
     
                         #This is the detector that sees the pin goes high then starts the function pulse
