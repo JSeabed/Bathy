@@ -31,7 +31,7 @@ realTime = ''
 sSecond = ''
 sMSecond = ''
 #                   These variables are for the parsing of the AML data
-status = 'st'
+status = ',st'
 dataToSend = '$SBDAML,,,,,,,,ST' + '\r\n'
 #                   These variables are used to pull the time from the systemclock and use them for tagging
 sDayNow = ''
@@ -111,7 +111,7 @@ def parseZda(raw_message):
     if raw_message is None:                                 # if no data is sent stop the madness
         return None
         bZdaOntvangen = False
-        status = "IZ"
+        status = ",IZ"
             
     try:
         sLines = raw_message.split(',')                     # with split() each comma seperated piece of raw_message is written in array sLines.   
@@ -190,7 +190,7 @@ def serZdaReader():
         if dateTime == None:                               # if there is no usable data print "dateTime is none"
             print('dateTime is none:')
             bZdaOntvangen = False                           # Boolean bZdaOntvangen is set to False
-            status = "IZ"                                   # Change the status to IZ (Invalid ZDA)
+            status = ",IZ"                                   # Change the status to IZ (Invalid ZDA)
         
         else:                                               # If the data is usable 
                 bZdaOntvangen = True                        # Boolean bZdaOntvangen is set to True
@@ -236,17 +236,17 @@ def pulse(channel):
     global bZdaOntvangen                                    # Getting some global variables and stuff
     global dateTime
     global status
-    print (bZdaOntvangen)                                   #Print the current value of bZdaOntvangen to the terminal
-    print "test_1"
+    #print (bZdaOntvangen)                                   #Print the current value of bZdaOntvangen to the terminal
+
 
 #checking if the data has been received and setting the system time to the received date. after setting the time the statement gets reset to False for checking in the next cycle. status is also 
     if bZdaOntvangen == True:                                   # if ZDAontvangen is true
         os.system('date -s %s' % dateTime)                         # Sets the system time to dateTime (the time set per ZDA)
         #dateTime = False                                           # dateTime is cleared out so when we receive another puls before  ZDA we won't get stuck in the past
-        status = "OK"                                               # status is set to ok as all seems ok
+        status = ",OK"                                               # status is set to ok as all seems ok
        # bZdaOntvangen = False
     else:                                                       # If ZDAontvangen was false 
-        status = 'NZ'                                               # Status is set to NZ (no Zda) 
+        status = ',NZ'                                               # Status is set to NZ (no Zda) 
         bZdaOntvangen = False                                       # Zda ontvangen is set to False (just to be sure)
           
                         #This is the detector that sees the pin goes high then starts the function pulse
