@@ -34,9 +34,6 @@ sMSecond = ''
 status = ',st'
 dataToSend = '$SBDAML,,,,,,,,ST' + '\r\n'
 #                   These variables are used to pull the time from the systemclock and use them for tagging
-#sDayNow = ''
-#sMonthNow = ''
-#sYearNow = ''
 dateNow = ''
 timeNow = ''
 dateTime = '' 
@@ -129,9 +126,9 @@ def parseZda(raw_message):
         
         if len(sLines[2]) < 2 or len(sLines[3]) < 2 or len(sLines[4]) < 2:      # if string 2, 3 or 4 is longer then 2 digits stop the data
             return None
-        global sDay; sDay = sLines[2]                           # the 3th string of sLines is the day
-        global sMonth; sMonth = sLines[3]                       # the 4th string of sLines is the month      
-        global sYear; sYear = sLines[4]                         # the 3th string of sLines is the year     
+        sDay = sLines[2]                           # the 3th string of sLines is the day
+        sMonth = sLines[3]                       # the 4th string of sLines is the month      
+        sYear = sLines[4]                         # the 3th string of sLines is the year     
         global date; date = sYear + '-' + sMonth + '-' + sDay # The combined data of day+month+year makes the variable date (date)     
         global dateTime; dateTime = "'" + date + ' ' + realTime +"'" # The combined data of day+month+year makes the variable dateNow (date)
         return ' ZDA OK' + ' >> ' + dateTime           # Send confirmation + data (ZDA OK >> parsed data ) to console and Com1
