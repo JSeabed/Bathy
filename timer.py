@@ -21,7 +21,6 @@ import string
 
 #/////////////////////////////////  Defining variables used for the data splitting    ///////////////////
 #                   These variables are for the parsing of the ZDA data
-
 sDay = ''
 sMonth = ''
 sYear = ''
