@@ -161,13 +161,10 @@ def parseAml (raw_mess):
     dataToSend = '$SBDAML' + ',' + dateNow
     print len(sLineAml)
     while i < len(sLineAml):
-       #LinesToSend += sLineAml[i]
         LinesToSend = LinesToSend + ',' + sLineAml[i]
         i = i + 1
-        print (i, LinesToSend)
     dataToSend = dataToSend + LinesToSend + status + '\r\n'
-    print dataToSend
-    del sLineAml
+   # del sLineAml
     return dataToSend
 
 #/////////////////////////////////   Serial receive loops   /////////////////////////////////////////////
