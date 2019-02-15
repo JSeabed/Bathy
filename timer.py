@@ -2,8 +2,6 @@
 # Modified by Sebastiaan van Essen 07/2016
 # This code combines the time precision of the GNSS network and data from ALM sensors
 # and sends the data via Ethernet to a computer as a stand alone module.
-#
-
 #from _overlapped import NULL
 #from test.support import temp_cwd
 #/////////////////////////////////  Importing modules for functions later used    ///////////////////////
@@ -51,11 +49,9 @@ bZdaOntvangen = False                                       # This trigger is to
 bAmlOntvangen = False                                       # This trigger is to see if there is unsent AML info.
 
 #/////////////////////////////////  GPIO configuration   ////////////////////////////////////////////////
-
 #Configuring the general pins for input/output (GPIO
-#GPIO.setmode(GPIO.BCM)                                      
-# setup GPIO using Board numbering
-GPIO.setup("P9_42", GPIO.IN, pull_up_down=GPIO.PUD_DOWN)          # setting Pin P9_42 as input, also a pull-down resistor is turned on internally
+# setting Pin P9_42 as input, also a pull-down resistor is turned on internally
+GPIO.setup("P9_42", GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 #///////////////////   Serial communication configurations    ///////////////////////////////////////////
 
