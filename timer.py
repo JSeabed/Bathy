@@ -6,8 +6,6 @@
 
 #from _overlapped import NULL
 #from test.support import temp_cwd
-
-
 #/////////////////////////////////  Importing modules for functions later used    ///////////////////////
 
 import os                                                  
@@ -21,11 +19,7 @@ import socket
 import Adafruit_BBIO.GPIO as GPIO                           
 import string                                               
 
-
-
 #/////////////////////////////////  Defining variables used for the data splitting    ///////////////////
-
-
 #                   These variables are for the parsing of the ZDA data
 
 sDay = ''
@@ -57,11 +51,8 @@ UDP_IP2 = "172.16.10.50"
 UDP_PORT2 = 5001
 
                             # naming the sockets for UDP communication
-
 sock1 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
-
 
 #/////////////////////////////////   Defining triggers for functions    /////////////////////////////////
 # trigger is used for the PPS input. ZDA is used to monitor the time that has passed since the requested time(?) [original line: This trigger is to keep track of the "freshness" of the ZDA time info]. 
@@ -70,21 +61,12 @@ bTrigger = False                                            # This trigger is us
 bZdaOntvangen = False                                       # This trigger is to keep track of the "freshness" of the ZDA time info
 bAmlOntvangen = False                                       # This trigger is to see if there is unsent AML info.
 
-
-#/////////////////////////////////    Error/debug logging functionality   ///////////////////////////////
-
-#logging.basicConfig(level=logging.DEBUG,
-#                    format='[%(levelname)s] (%(threadName)-10s) %(message)s',
-#                    )
-
-
 #/////////////////////////////////  GPIO configuration   ////////////////////////////////////////////////
 
 #Configuring the general pins for input/output (GPIO
 #GPIO.setmode(GPIO.BCM)                                      
 # setup GPIO using Board numbering
 GPIO.setup("P9_42", GPIO.IN, pull_up_down=GPIO.PUD_DOWN)          # setting Pin P9_42 as input, also a pull-down resistor is turned on internally
-
 
 #///////////////////   Serial communication configurations    ///////////////////////////////////////////
 
@@ -94,20 +76,13 @@ serZda = serial.Serial('/dev/ttyO1')
 serZda.baudrate = 19200                                     
 serZda.isOpen()                                             
 
-
 #Open Com port of AML (connected through P9_21 and P9_22)
 # Linking serAml to the correct Com port with the correct baudrate and setting the state of the port to open.
 serAml = serial.Serial('/dev/ttyO2')                      # Linking serAml to the correct Com port
 serAml.baudrate = 38400                                     # Setting the communication speed of the serial port
 serAml.isOpen()                                             # Open serial port
 
-
-
-
 #/////////////////////////////////  Processing the incoming data by splitting it and putting it in usable variables  //////////
-
-
-
                         #Clearing data from AML
 
 def clearAml():
@@ -117,7 +92,6 @@ def clearAml():
     print ('AML cleared\r\n')                               # Show a message (AML cleared) in the terminal that started the program
 
                         #Pulling the time from the system and write it into a usable variable
-
 def getTime():
 
     currentDateTimeRaw = datetime.datetime.now() + datetime.timedelta(seconds =1)   # currentDateTime is the current time plus one second 
@@ -129,10 +103,6 @@ def getTime():
     global sMonthNow; sMonthNow = currentTime[2]                  # Month      
     global sYearNow; sYearNow = currentTime[3]                    # And year     
     global dateNow; dateNow = sDayNow + '-' + sMonthNow + '-' + sYearNow + ',' + timeNow   # The combined data of day+month+year makes the variable dateNow (date)     
-
-
-
-
                         #Splitting the ZDA data into 8 variables, then process it to time and date
 
 def parseZda(raw_message):
@@ -306,7 +276,7 @@ def pulse(channel):
     global dateTime
     global status
     print (bZdaOntvangen)                                   #Print the current value of bZdaOntvangen to the terminal
-
+    print "test_1"
 
 #checking if the data has been received and setting the system time to the received date. after setting the time the statement gets reset to False for checking in the next cycle. status is also 
     if bZdaOntvangen == True:                                   # if ZDAontvangen is true
