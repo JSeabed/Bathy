@@ -281,7 +281,7 @@ def pulse(channel):
 #checking if the data has been received and setting the system time to the received date. after setting the time the statement gets reset to False for checking in the next cycle. status is also 
     if bZdaOntvangen == True:                                   # if ZDAontvangen is true
         os.system('date -s %s' % dateTime)                         # Sets the system time to dateTime (the time set per ZDA)
-        dateTime = False                                           # dateTime is cleared out so when we receive another puls before  ZDA we won't get stuck in the past
+        #dateTime = False                                           # dateTime is cleared out so when we receive another puls before  ZDA we won't get stuck in the past
         status = "OK"                                               # status is set to ok as all seems ok
        # bZdaOntvangen = False
     else:                                                       # If ZDAontvangen was false 
