@@ -161,7 +161,8 @@ def parseAml (raw_mess):
     LinesToSend = ""
     dataToSend = 'AML OK >> $SBDAML' + ',' + dateNow
     while i < len(sLineAml):
-        linesToSend = linesToSend + ',' + sLineAml[i]
+        #linesToSend = linesToSend + ',' + sLineAml[i]
+        LinesToSend += LinesToSend
     dataToSend = dataToSend + lineToSend + status + '\r\n'
 
     return dataToSend
