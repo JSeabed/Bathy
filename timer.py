@@ -97,10 +97,10 @@ def getTime():
     currentDateTime = currentDateTimeRaw.strftime('%H:%M:%S.%f,%d,%m,%Y')           # puts the DateTime in a specific format
     currentTime = currentDateTime.split(',')                    # with split() each comma seperated piece of currentDateTime is written in array currentTime.   
         
-    global timeNow; timeNow = currentTime[0]                      # Splitting the array into time       
-    global sDayNow; sDayNow = currentTime[1]                      # Day
-    global sMonthNow; sMonthNow = currentTime[2]                  # Month      
-    global sYearNow; sYearNow = currentTime[3]                    # And year     
+    timeNow; timeNow = currentTime[0]                      # Splitting the array into time       
+    sDayNow; sDayNow = currentTime[1]                      # Day
+    sMonthNow; sMonthNow = currentTime[2]                  # Month      
+    sYearNow; sYearNow = currentTime[3]                    # And year     
     global dateNow; dateNow = sDayNow + '-' + sMonthNow + '-' + sYearNow + ',' + timeNow   # The combined data of day+month+year makes the variable dateNow (date)     
                         #Splitting the ZDA data into 8 variables, then process it to time and date
 
