@@ -149,9 +149,10 @@ def parseAml (raw_mess):
     i = 1
     LinesToSend = ""
     dataToSend = '$SBDAML' + ',' + dateNow
-    while i < len(sLineAml):
-        LinesToSend = LinesToSend + ',' + sLineAml[i]
-        i = i + 1
+    LinesToSend = ','.join(sLineAml[1:])
+    #while i < len(sLineAml):
+    #    LinesToSend = LinesToSend + ',' + sLineAml[i]
+    #    i = i + 1
     dataToSend = dataToSend + LinesToSend + status + '\r\n'
     return dataToSend
 
@@ -170,9 +171,8 @@ def serZdaReader():
         pass
         global bZdaOntvangen                                # Requesting access to global variable named bZdaOntvangen
         global status                                       # Requesting access to global variable named status
-       # print (' COM1 ZDA: ' + sLine)                        # Write the ZDA data to terminal
         dateTime = parseZda(sLine)                         # parse the raw data string into usable variables
-        if dateTime == None:                               # if there is no usable data print "dateTime is none"
+        if dateTime is None:                               # if there is no usable data print "dateTime is none"
             print('dateTime is none:')
             bZdaOntvangen = False                           # Boolean bZdaOntvangen is set to False
             status = ",IZ"                                   # Change the status to IZ (Invalid ZDA)
@@ -251,9 +251,7 @@ def UDPsender():
     global UDP_PORT2
     
     while True:                                                 # Do forever
-        
-       # print('Send over Ethernet')                             # send to console that data is being sent over ethernet                    
-        global dataToSend; print (dataToSend + '\r\n')          # Get the string to sent over UDP and print it to terminal
+        global dataToSend; #print (dataToSend + '\r\n')          # Get the string to sent over UDP and print it to terminal
         sock1.sendto(dataToSend, (UDP_IP1, UDP_PORT1))          # send the string to the first IP address over UDP
         sock2.sendto(dataToSend, (UDP_IP2, UDP_PORT2))          # Send the string to the second IP adress over UDP
         clearAml()                                              # Clear the string to avoid duplicates 
