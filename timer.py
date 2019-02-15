@@ -151,11 +151,11 @@ def parseAml (raw_mess):
     global UDP_PORT2   
     global sLineAml; sLineAml = raw_mess.split('  ')        # with split() each space seperated piece of raw_mess is written in array sLinesAml. 
     if len(sLineAml) < 4:                                   # if the data is shorter then 5 blocks of data run next line
-        sock1.sendto(raw_mess + '\r\n', (UDP_IP1, UDP_PORT1))          # send the string to the first IP address over UDP
+        sock1.sendto(raw_mess + '\r\n', (UDP_IP1, UDP_PORT1))          
         sock2.sendto(raw_mess + '\r\n', (UDP_IP2, UDP_PORT2)) 
-    getTime()                                               # Get the current system time and put it in dateNow
-    global dataToSend                                       # make dataToSend (variable) usable in this function
-    global status                                           # Do the same as above, but for status
+    getTime()                                               
+    global dataToSend                                       
+    global status                                          
 
     i = 1
     LinesToSend = ""
@@ -164,7 +164,7 @@ def parseAml (raw_mess):
     while i < len(sLineAml):
         #linesToSend = linesToSend + ',' + sLineAml[i]
         LinesToSend += LinesToSend
-        #print "counting"
+        print LinesToSend
     dataToSend = dataToSend + lineToSend + status + '\r\n'
     print dataToSend
     del sLineAml
