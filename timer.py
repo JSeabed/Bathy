@@ -21,15 +21,8 @@ import string
 
 #/////////////////////////////////  Defining variables used for the data splitting    ///////////////////
 #                   These variables are for the parsing of the ZDA data
-sDay = ''
-sMonth = ''
-sYear = ''
-sHour = ''
-sMinute = ''
 date = ''
 realTime = ''
-sSecond = ''
-sMSecond = ''
 #                   These variables are for the parsing of the AML data
 status = ',st'
 dataToSend = '$SBDAML,,,,,,,,ST' + '\r\n'
@@ -118,10 +111,10 @@ def parseZda(raw_message):
             return None                                     # do nothing
         
         tempTime = sLines[1]                                # tempTijd is the 2nd string of data from array sLines 
-        global sHour; sHour = tempTime[:2]                    # the first two digits are the hours
-        global sMinute; sMinute = tempTime[2:4]             # digits 3 and 4 are minutes  
-        global sSecond; sSecond = tempTime[4:6]             # digits 5 and 6 are seconds  
-        global sMSecond; sMSecond = tempTime[7:]            # all digits from 7 and up are milliseconds    
+        sHour = tempTime[:2]                    # the first two digits are the hours
+        sMinute = tempTime[2:4]             # digits 3 and 4 are minutes  
+        sSecond = tempTime[4:6]             # digits 5 and 6 are seconds  
+        sMSecond = tempTime[7:]            # all digits from 7 and up are milliseconds    
         global realTime; realTime = sHour + ':' + sMinute + ':' + sSecond + '.' + sMSecond    #Time in format HH:MM:SS        
         
         if len(sLines[2]) < 2 or len(sLines[3]) < 2 or len(sLines[4]) < 2:      # if string 2, 3 or 4 is longer then 2 digits stop the data
