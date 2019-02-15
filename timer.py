@@ -6,25 +6,22 @@
 #from test.support import temp_cwd
 #/////////////////////////////////  Importing modules for functions later used    ///////////////////////
 
-import os                                                  
-import sys                                                 
-import serial                                               
-import threading                                            
-import datetime                                            
-import time                                                 
-import logging                                              
-import socket                                               
-import Adafruit_BBIO.GPIO as GPIO                           
-import string                                               
+import os
+import sys
+import serial
+import threading
+import datetime
+import time
+import logging
+import socket
+import Adafruit_BBIO.GPIO as GPIO
+import string
 
 #/////////////////////////////////  Defining variables used for the data splitting    ///////////////////
-#                   These variables are for the parsing of the ZDA data
 date = ''
 realTime = ''
-#                   These variables are for the parsing of the AML data
 status = ',st'
 dataToSend = '$SBDAML,,,,,,,,ST' + '\r\n'
-#                   These variables are used to pull the time from the systemclock and use them for tagging
 dateNow = ''
 timeNow = ''
 dateTime = '' 
@@ -36,7 +33,6 @@ UDP_PORT1 = 5001
 #UDP_IP2 = "10.68.5.92"      
 UDP_IP2 = "172.16.10.50"
 UDP_PORT2 = 5001
-
                             # naming the sockets for UDP communication
 sock1 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -44,12 +40,12 @@ sock2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 #/////////////////////////////////   Defining triggers for functions    /////////////////////////////////
 # trigger is used for the PPS input. ZDA is used to monitor the time that has passed since the requested time(?) [original line: This trigger is to keep track of the "freshness" of the ZDA time info]. 
 # AML trigger is to see if there is unsend AML info
-bTrigger = False                                            # This trigger is used for the PPS input
-bZdaOntvangen = False                                       # This trigger is to keep track of the "freshness" of the ZDA time info
-bAmlOntvangen = False                                       # This trigger is to see if there is unsent AML info.
+bTrigger = False
+bZdaOntvangen = False
+bAmlOntvangen = False
 
 #/////////////////////////////////  GPIO configuration   ////////////////////////////////////////////////
-#Configuring the general pins for input/output (GPIO
+#Configuring the general pins for input/output (GPIO)
 # setting Pin P9_42 as input, also a pull-down resistor is turned on internally
 GPIO.setup("P9_42", GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
@@ -127,7 +123,6 @@ def parseZda(raw_message):
                         # Splitting the AML Data into variables and combining with time
 
 def parseAml (raw_mess):
-    global AmlMessage
     global UDP_IP1                                              #Getting some global variables
     global UDP_PORT1
     global UDP_IP2
@@ -189,7 +184,6 @@ def writeCom2(textToWrite):                                                 # Se
     serAml.write(textToWrite.encode(encoding='utf_8', errors='strict'))     # Encode data to serial protocol for Com2
 
 #///////////////////////////////// This is what happenes when pin 7 (PPS) goes high   ///////////////////
-
                         #When pulse() is used this is what happens
 def pulse(channel):
     global bZdaOntvangen                                    # Getting some global variables and stuff
@@ -212,20 +206,19 @@ GPIO.add_event_detect("P9_42", GPIO.RISING, callback=pulse, bouncetime = 300)  #
 #////////////////////////////////////// Ethernet write loops   //////////////////////////////////////////
 
 def UDPsender():
-    global UDP_IP1                                              #Getting some global variables
+    global UDP_IP1
     global UDP_PORT1
     global UDP_IP2
     global UDP_PORT2
     
-    while True:                                                 # Do forever
-        global dataToSend; #print (dataToSend + '\r\n')          # Get the string to sent over UDP and print it to terminal
+    while True:
+        global dataToSend
         sock1.sendto(dataToSend, (UDP_IP1, UDP_PORT1))          # send the string to the first IP address over UDP
         sock2.sendto(dataToSend, (UDP_IP2, UDP_PORT2))          # Send the string to the second IP adress over UDP
         clearAml()                                              # Clear the string to avoid duplicates 
         time.sleep(1)                                           # Wait for a second (minus runtime of the code) and repeat
 
 #//////////////////////////////////// Serial loop    ////////////////////////////////////////////////////
-
 #Start thread Ethernet UDP
 thrUDP = threading.Thread(name='UDPsender', target=UDPsender) # Create a thread for serial communication(thrAML) 
 thrUDP.start()                                                      # Start said thread

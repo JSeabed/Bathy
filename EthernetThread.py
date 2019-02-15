@@ -30,3 +30,17 @@ def UDPsender():
 #Start thread Ethernet UDP
 thrUDP = threading.Thread(name='UDPsender', target=UDPsender) # Create a thread for serial communication(thrAML) 
 thrUDP.start()                                                      # Start said thread
+
+def parseAml (raw_mess):
+    global AmlMessage
+    global UDP_IP1                                              #Getting some global variables
+    global UDP_PORT1
+    global UDP_IP2
+    global UDP_PORT2   
+    global sLineAml; sLineAml = raw_mess.split('  ')        # with split() each space seperated piece of raw_mess is written in array sLinesAml. 
+    if len(sLineAml) < 4:                                   # if the data is shorter then 5 blocks of data run next line
+        sock1.sendto(raw_mess + '\r\n', (UDP_IP1, UDP_PORT1))
+        sock2.sendto(raw_mess + '\r\n', (UDP_IP2, UDP_PORT2))
+    getTime()
+    global dataToSend
+    global status
