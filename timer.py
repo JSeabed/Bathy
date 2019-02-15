@@ -164,6 +164,7 @@ def parseAml (raw_mess):
         #linesToSend = linesToSend + ',' + sLineAml[i]
         LinesToSend += LinesToSend
     dataToSend = dataToSend + lineToSend + status + '\r\n'
+    print dataToSend
 
     return dataToSend
 #                        # This bit customises the string to the amount of data blocks received from the AML
