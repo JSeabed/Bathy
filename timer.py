@@ -167,7 +167,7 @@ def parseAml (raw_mess):
         #print "counting"
     dataToSend = dataToSend + lineToSend + status + '\r\n'
     print dataToSend
-
+    del sLineAml
     return dataToSend
 #                        # This bit customises the string to the amount of data blocks received from the AML
 #                        
