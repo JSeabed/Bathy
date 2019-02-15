@@ -164,6 +164,7 @@ def parseAml (raw_mess):
     while i < len(sLineAml):
         #linesToSend = linesToSend + ',' + sLineAml[i]
         LinesToSend += LinesToSend
+        i = i + 1
         print i
     dataToSend = dataToSend + lineToSend + status + '\r\n'
     print dataToSend
