@@ -78,8 +78,6 @@ def clearAml():
     global status                                           # Requesting access to global variable named status
     global dateNow; dateNow = ''                            # Requesting access to global variable named dateNow, then empty it
     global dataToSend; dataToSend = '$SBDAML,,,,,,,,' + status + '\r\n'     # Requesting access to global variable named datToSend, then put an default empty string in it
-    print ('AML cleared\r\n')                               # Show a message (AML cleared) in the terminal that started the program
-
                         #Pulling the time from the system and write it into a usable variable
 def getTime():
 
@@ -108,20 +106,20 @@ def parseZda(raw_message):
         if len(sLines) < 7:                                 # if the data contains less then 7 blocks
             return None
         if len(sLines[1]) < 9:                              # or more then 9
-            return None                                     # do nothing
+            return None
         
-        tempTime = sLines[1]                                # tempTijd is the 2nd string of data from array sLines 
-        sHour = tempTime[:2]                    # the first two digits are the hours
-        sMinute = tempTime[2:4]             # digits 3 and 4 are minutes  
-        sSecond = tempTime[4:6]             # digits 5 and 6 are seconds  
-        sMSecond = tempTime[7:]            # all digits from 7 and up are milliseconds    
+        tempTime = sLines[1]
+        sHour = tempTime[:2]
+        sMinute = tempTime[2:4]
+        sSecond = tempTime[4:6]
+        sMSecond = tempTime[7:]
         global realTime; realTime = sHour + ':' + sMinute + ':' + sSecond + '.' + sMSecond    #Time in format HH:MM:SS        
         
         if len(sLines[2]) < 2 or len(sLines[3]) < 2 or len(sLines[4]) < 2:      # if string 2, 3 or 4 is longer then 2 digits stop the data
             return None
-        sDay = sLines[2]                           # the 3th string of sLines is the day
-        sMonth = sLines[3]                       # the 4th string of sLines is the month      
-        sYear = sLines[4]                         # the 3th string of sLines is the year     
+        sDay = sLines[2]
+        sMonth = sLines[3]
+        sYear = sLines[4]
         global date; date = sYear + '-' + sMonth + '-' + sDay # The combined data of day+month+year makes the variable date (date)     
         global dateTime; dateTime = "'" + date + ' ' + realTime +"'" # The combined data of day+month+year makes the variable dateNow (date)
         return ' ZDA OK' + ' >> ' + dateTime           # Send confirmation + data (ZDA OK >> parsed data ) to console and Com1
@@ -140,29 +138,25 @@ def parseAml (raw_mess):
     global UDP_PORT2   
     global sLineAml; sLineAml = raw_mess.split('  ')        # with split() each space seperated piece of raw_mess is written in array sLinesAml. 
     if len(sLineAml) < 4:                                   # if the data is shorter then 5 blocks of data run next line
-        sock1.sendto(raw_mess + '\r\n', (UDP_IP1, UDP_PORT1))          
-        sock2.sendto(raw_mess + '\r\n', (UDP_IP2, UDP_PORT2)) 
-    getTime()                                               
-    global dataToSend                                       
-    global status                                          
+        sock1.sendto(raw_mess + '\r\n', (UDP_IP1, UDP_PORT1))
+        sock2.sendto(raw_mess + '\r\n', (UDP_IP2, UDP_PORT2))
+    getTime()
+    global dataToSend
+    global status
 
-    i = 1
-    LinesToSend = ""
+    #i = 1
+    #LinesToSend = ""
     dataToSend = '$SBDAML' + ',' + dateNow
     LinesToSend = ','.join(sLineAml[1:])
-    #while i < len(sLineAml):
-    #    LinesToSend = LinesToSend + ',' + sLineAml[i]
-    #    i = i + 1
     dataToSend = dataToSend + LinesToSend + status + '\r\n'
     return dataToSend
 
 #/////////////////////////////////   Serial receive loops   /////////////////////////////////////////////
-    
 def serZdaReader():
      
-    while True:                                             # Run forever
-        bLine = serZda.readline()                           # Read the incoming data from serial ZDA and put it in bLine
-        try:                                                # if possible do
+    while True:
+        bLine = serZda.readline()
+        try:
             sLine = bLine.decode(encoding='utf_8')          # decode it into usable data      
 
         except:                                             # if not possible
@@ -179,10 +173,7 @@ def serZdaReader():
         
         else:                                               # If the data is usable 
                 bZdaOntvangen = True                        # Boolean bZdaOntvangen is set to True
-
-            
-
-                            #Serial AML (Com2)
+                #Serial AML (Com2)
 def serAmlReader():
     
     while True:                                             # loop forever
@@ -190,42 +181,27 @@ def serAmlReader():
         s1Line = b1Line.decode(encoding='utf_8')            # Decode the data from serial ALM to usable data
         s1Line = s1Line.rstrip(' ' +'\r\n')
         pass
-        #print ( datetime.datetime.now())                    # Print to console AML was received
         isAmlValid = parseAml(s1Line)                       # turn the raw data into usable data blocks
         global bZdaOntvangen
-   #     if isAmlValid == None:                              # if the data is garbage print "AML not valid" to console
-            #print('AML not valid')
-        
-       # else:
-         #   print (isAmlValid+ '\r\n'+ '\r\n')              # Print status (OK)to console 
-
 
 #////////////////////////////////////// Serial Write loops  /////////////////////////////////////////////
-
 
 def writeCom1(textToWrite):                                                 # Serial port 1 ZDA Writer
     serZda.write(textToWrite.encode(encoding='utf_8', errors='strict'))     # Encode data to serial protocol for Com1
 
-
 def writeCom2(textToWrite):                                                 # Serial poort 2 AML Writer
     serAml.write(textToWrite.encode(encoding='utf_8', errors='strict'))     # Encode data to serial protocol for Com2
-
-
 
 #///////////////////////////////// This is what happenes when pin 7 (PPS) goes high   ///////////////////
 
                         #When pulse() is used this is what happens
 def pulse(channel):
-    #print('trigger' )                                       # Give the terminal that PPS was received
-    #print (datetime.datetime.now())                         # Print to console the current time
     global bZdaOntvangen                                    # Getting some global variables and stuff
     global dateTime
     global status
-    #print (bZdaOntvangen)                                   #Print the current value of bZdaOntvangen to the terminal
-
 
 #checking if the data has been received and setting the system time to the received date. after setting the time the statement gets reset to False for checking in the next cycle. status is also 
-    if bZdaOntvangen == True:                                   # if ZDAontvangen is true
+    if bZdaOntvangen is True:                                   # if ZDAontvangen is true
         os.system('date -s %s' % dateTime)                         # Sets the system time to dateTime (the time set per ZDA)
         #dateTime = False                                           # dateTime is cleared out so when we receive another puls before  ZDA we won't get stuck in the past
         status = ",OK"                                               # status is set to ok as all seems ok
@@ -237,12 +213,7 @@ def pulse(channel):
                         #This is the detector that sees the pin goes high then starts the function pulse
 GPIO.add_event_detect("P9_42", GPIO.RISING, callback=pulse, bouncetime = 300)  # When the triggerpin goes high start function pulse()
 
-
-
-
-
 #////////////////////////////////////// Ethernet write loops   //////////////////////////////////////////
-
 
 def UDPsender():
     global UDP_IP1                                              #Getting some global variables
@@ -257,9 +228,7 @@ def UDPsender():
         clearAml()                                              # Clear the string to avoid duplicates 
         time.sleep(1)                                           # Wait for a second (minus runtime of the code) and repeat
 
-
 #//////////////////////////////////// Serial loop    ////////////////////////////////////////////////////
-
 
 #Start thread Ethernet UDP
 thrUDP = threading.Thread(name='UDPsender', target=UDPsender) # Create a thread for serial communication(thrAML) 
@@ -272,8 +241,5 @@ thrZda.start()                                                      # Start said
 #Start thread serial 2 AML Reader
 thrAml = threading.Thread(name='serAmlReader', target=serAmlReader) # Create a thread for serial communication(thrAML) 
 thrAml.start()                                                      # Start said thread
-
-
-
 
                                                   # terminate thread
