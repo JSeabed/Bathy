@@ -177,8 +177,8 @@ def serAmlReader():
         s1Line = b1Line.decode(encoding='utf_8')            # Decode the data from serial ALM to usable data
         s1Line = s1Line.rstrip(' ' +'\r\n')
         isAmlValid = parseAml(s1Line)                       # turn the raw data into usable data blocks
-        getTime()
         global bZdaOntvangen
+
 
 #////////////////////////////////////// Serial Write loops  /////////////////////////////////////////////
 def writeCom1(textToWrite):                                                 # Serial port 1 ZDA Writer
@@ -186,6 +186,7 @@ def writeCom1(textToWrite):                                                 # Se
 
 def writeCom2(textToWrite):                                                 # Serial poort 2 AML Writer
     serAml.write(textToWrite.encode(encoding='utf_8', errors='strict'))     # Encode data to serial protocol for Com2
+
 
 #///////////////////////////////// This is what happenes when pin 7 (PPS) goes high   ///////////////////
 def pulse(channel):
@@ -204,6 +205,7 @@ def pulse(channel):
         bZdaOntvangen = False
                         #This is the detector that sees the pin goes high then starts the function pulse
 GPIO.add_event_detect("P9_42", GPIO.RISING, callback=pulse, bouncetime = 300)  # When the triggerpin goes high start function pulse()
+
 
 #////////////////////////////////////// Ethernet write loops   //////////////////////////////////////////
 def UDPsender():
