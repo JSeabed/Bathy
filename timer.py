@@ -177,7 +177,6 @@ def serAmlReader():
         s1Line = b1Line.decode(encoding='utf_8')            # Decode the data from serial ALM to usable data
         s1Line = s1Line.rstrip(' ' +'\r\n')
         isAmlValid = parseAml(s1Line)                       # turn the raw data into usable data blocks
-        getTime()
         global bZdaOntvangen
 
 
@@ -220,6 +219,7 @@ def UDPsender():
         sock1.sendto(dataToSend, (UDP_IP1, UDP_PORT1))          # send the string to the first IP address over UDP
         sock2.sendto(dataToSend, (UDP_IP2, UDP_PORT2))          # Send the string to the second IP adress over UDP
         clearAml()                                              # Clear the string to avoid duplicates 
+        getTime()
         time.sleep(0.5)
 
 
