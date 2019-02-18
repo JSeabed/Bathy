@@ -68,7 +68,7 @@ serAml.isOpen()
 #Clearing data from AML
 def clearAml():
     global status                                           # Requesting access to global variable named status
-    global dateNow; dateNow = ''                            # Requesting access to global variable named dateNow, then empty it
+    #global dateNow; dateNow = ''                            # Requesting access to global variable named dateNow, then empty it
    # global dataToSend; dataToSend = '$SBDAML,,,,,,,,' + status + '\r\n'     # Requesting access to global variable named datToSend, then put an default empty string in it
                         #Pulling the time from the system and write it into a usable variable
 
