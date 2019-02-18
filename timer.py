@@ -103,7 +103,7 @@ def parseZda(raw_message):
         if len(sLines[1]) < 9:
             return None
 
-        realtime = zdaParseTime(sLines[1])
+        realTime = zdaParseTime(sLines[1])
 
         if len(sLines[2]) < 2 or len(sLines[3]) < 2 or len(sLines[4]) < 2:      # if string 2, 3 or 4 is longer then 2 digits stop the data
             return None
