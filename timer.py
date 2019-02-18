@@ -160,6 +160,7 @@ def serZdaReader():
         try:
             sLine = bLine.decode(encoding='utf_8')          # decode it into usable data
         except:
+            sLine = "0"
             pass                                            # don't do anything
 
         global bZdaOntvangen                                # Requesting access to global variable named bZdaOntvangen
