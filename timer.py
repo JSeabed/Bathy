@@ -115,7 +115,7 @@ def parseZda(raw_message):
         return ' ZDA OK' + ' >> ' + dateTime           # Send confirmation + data (ZDA OK >> parsed data ) to console and Com1
 
     except Exception as e:
-        print ('Exception: ' + str(e)
+        print ('Exception: ' + str(e))
 
 
 def zdaParseTime(tempTime):
