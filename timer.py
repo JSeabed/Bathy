@@ -15,7 +15,6 @@ import logging
 import socket
 import Adafruit_BBIO.GPIO as GPIO
 import string
-import 
 
 #/////////////////////////////////  Defining variables used for the data splitting    ///////////////////
 date = ''
