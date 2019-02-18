@@ -140,7 +140,7 @@ def parseAml (raw_mess):
         sock1.sendto(raw_mess + '\r\n', (UDP_IP1, UDP_PORT1))
         sock2.sendto(raw_mess + '\r\n', (UDP_IP2, UDP_PORT2))
     getTime()
-    global dataToSend; dataToSend = '$SBDAML,,,,,,,,' + status + '\r\n
+    global dataToSend; dataToSend = '$SBDAML,,,,,,,,' + status + '\r\n'
     global status
 
     #i = 1
