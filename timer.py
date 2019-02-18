@@ -127,7 +127,7 @@ def zdaParseTime(tempTime):
         return sHour + ':' + sMinute + ':' + sSecond + '.' + sMSecond
 
 def zdaParseDate(sLines):
-        kin order: year, month date
+        #in order: year, month date
         return sLines[4] + '-' + sLines[3] + '-' + sLines[2]
 
 
