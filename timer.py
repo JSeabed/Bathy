@@ -69,7 +69,7 @@ serAml.isOpen()
 def clearAml():
     global status                                           # Requesting access to global variable named status
     global dateNow; dateNow = ''                            # Requesting access to global variable named dateNow, then empty it
-    global dataToSend; dataToSend = '$SBDAML,,,,,,,,' + status + '\r\n'     # Requesting access to global variable named datToSend, then put an default empty string in it
+   # global dataToSend; dataToSend = '$SBDAML,,,,,,,,' + status + '\r\n'     # Requesting access to global variable named datToSend, then put an default empty string in it
                         #Pulling the time from the system and write it into a usable variable
 
 
@@ -140,7 +140,7 @@ def parseAml (raw_mess):
         sock1.sendto(raw_mess + '\r\n', (UDP_IP1, UDP_PORT1))
         sock2.sendto(raw_mess + '\r\n', (UDP_IP2, UDP_PORT2))
     getTime()
-    global dataToSend
+    global dataToSend; dataToSend = '$SBDAML,,,,,,,,' + status + '\r\n
     global status
 
     #i = 1
