@@ -216,6 +216,7 @@ def UDPsender():
 
     while True:
         global dataToSend
+        getTime()
         sock1.sendto(dataToSend, (UDP_IP1, UDP_PORT1))          # send the string to the first IP address over UDP
         sock2.sendto(dataToSend, (UDP_IP2, UDP_PORT2))          # Send the string to the second IP adress over UDP
         clearAml()                                              # Clear the string to avoid duplicates 
