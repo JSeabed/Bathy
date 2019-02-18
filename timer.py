@@ -20,7 +20,7 @@ import string
 date = ''
 status = ',st'
 dataToSend = '$SBDAML,,,,,,,,ST' + '\r\n'
-dateNow = ''
+#dateNow = ''
 timeNow = ''
 dateTime = '' 
 setTime = '' 
