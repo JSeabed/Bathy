@@ -60,15 +60,12 @@ serZda.isOpen()
 
 #Open Com port of AML (connected through P9_21 and P9_22)
 # Linking serAml to the correct Com port with the correct baudrate and setting the state of the port to open.
-
-# Linking serAml to the correct Com port
 serAml = serial.Serial('/dev/ttyO2')
 serAml.baudrate = 38400
 serAml.isOpen()
 
 #/////////////////////////////////  Processing the incoming data by splitting it and putting it in usable variables  //////////
-                        #Clearing data from AML
-
+#Clearing data from AML
 def clearAml():
     global status                                           # Requesting access to global variable named status
     global dateNow; dateNow = ''                            # Requesting access to global variable named dateNow, then empty it
@@ -222,7 +219,7 @@ def UDPsender():
         sock1.sendto(dataToSend, (UDP_IP1, UDP_PORT1))          # send the string to the first IP address over UDP
         sock2.sendto(dataToSend, (UDP_IP2, UDP_PORT2))          # Send the string to the second IP adress over UDP
         clearAml()                                              # Clear the string to avoid duplicates 
-        time.sleep(1)
+        #time.sleep(1)
 
 
 #Start thread Ethernet UDP
