@@ -87,7 +87,8 @@ def parseZda(raw_message):
             return None
         if len(sLines[1]) < 9:
             return None
-        timeList = (sLines[:2],sLines[2:4],sLines[4:6],sLines[7:])
+       # timeLise = 
+        timeList = (sLines[:2], sLines[2:4], sLines[4:6], sLines[7:])
         #realTime = zdaParseTime(sLines[1])
         realTime = ':'.join(timeList)
         print realTime
