@@ -17,13 +17,13 @@ import Adafruit_BBIO.GPIO as GPIO
 import string
 
 #/////////////////////////////////  Defining variables used for the data splitting    ///////////////////
-date = ''
-status = ',st'
-dataToSend = '$SBDAML,,,,,,,,ST' + '\r\n'
+#date = ''
+#status = ',st'
+#dataToSend = '$SBDAML,,,,,,,,ST' + '\r\n'
 #dateNow = ''
-timeNow = ''
-dateTime = '' 
-setTime = '' 
+#timeNow = ''
+#dateTime = '' 
+#setTime = '' 
 
 # IP adresses and ports for Ethernet transfers
 UDP_IP1 = "10.68.5.91"      
@@ -49,8 +49,6 @@ bAmlOntvangen = False
 # setting Pin P9_42 as input, also a pull-down resistor is turned on internally
 GPIO.setup("P9_42", GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-
-
 #Open Com port of GPZDA (Connected through P9_26)
 # Linking serZDA to the correct Com port with the correct baudrate and setting the state of the port to open.
 serZda = serial.Serial('/dev/ttyO1')
@@ -62,7 +60,6 @@ serZda.isOpen()
 serAml = serial.Serial('/dev/ttyO2')
 serAml.baudrate = 38400
 serAml.isOpen()
-
 
 def getTime():
     currentDateTimeRaw = datetime.datetime.now() + datetime.timedelta(seconds =1)   # currentDateTime is the current time plus one second 
