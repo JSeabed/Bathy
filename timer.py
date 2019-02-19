@@ -104,12 +104,8 @@ def parseZda(raw_message):
 
 
 def zdaParseTime(tempTime):
-        sHour = tempTime[:2]
-        sMinute = tempTime[2:4]
-        sSecond = tempTime[4:6]
-        sMSecond = tempTime[7:]
         #Time in format HH:MM:SS
-        return sHour + ':' + sMinute + ':' + sSecond + '.' + sMSecond
+        return tempTime[:2] + ':' + tempTime[2:4] + ':' + tempTime[4:6] + '.' + tempTime[7:]
 
 def zdaParseDate(sLines):
         #in order: year, month date
