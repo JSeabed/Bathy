@@ -89,7 +89,7 @@ def parseZda(raw_message):
             return None
         timeList = (sLines[:2],sLines[2:4],sLines[4:6],sLines[7:])
         #realTime = zdaParseTime(sLines[1])
-        realTime = ':'.join(timeList])
+        realTime = ':'.join(timeList)
         if len(sLines[2]) < 2 or len(sLines[3]) < 2 or len(sLines[4]) < 2:      # if string 2, 3 or 4 is longer then 2 digits stop the data
             return None
 
