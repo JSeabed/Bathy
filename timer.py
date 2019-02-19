@@ -82,16 +82,11 @@ def parseZda(raw_message):
             return None
         if len(sLines[1]) < 9:
             return None
-
         realTime = zdaParseTime(sLines[1])
-
         if len(sLines[2]) < 2 or len(sLines[3]) < 2 or len(sLines[4]) < 2:      # if string 2, 3 or 4 is longer then 2 digits stop the data
             return None
-
         date = zdaParseDate(sLines)
-
         global dateTime; dateTime = "'" + date + ' ' + realTime +"'"
-
         return ' ZDA OK' + ' >> ' + dateTime           # Send confirmation + data (ZDA OK >> parsed data ) to console and Com1
 
     except Exception as e:
@@ -168,7 +163,7 @@ def pulse(channel):
     global bZdaOntvangen
     global dateTime
     global status
-
+    print('pulse bench test')
 #checking if the data has been received and setting the system time to the received date. after setting the time the statement gets reset to False for checking in the next cycle. status is also 
     if bZdaOntvangen is True:
         os.system('date -s %s' % dateTime)                         # Sets the system time to dateTime (the time set per ZDA)
