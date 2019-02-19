@@ -17,13 +17,13 @@ import Adafruit_BBIO.GPIO as GPIO
 import string
 
 #/////////////////////////////////  Defining variables used for the data splitting    ///////////////////
-#date = ''
-#status = ',st'
-#dataToSend = '$SBDAML,,,,,,,,ST' + '\r\n'
-#dateNow = ''
-#timeNow = ''
-#dateTime = '' 
-#setTime = '' 
+date = ''
+status = ',st'
+dataToSend = '$SBDAML,,,,,,,,ST' + '\r\n'
+dateNow = ''
+timeNow = ''
+dateTime = '' 
+setTime = '' 
 
 # IP adresses and ports for Ethernet transfers
 UDP_IP1 = "10.68.5.91"      
