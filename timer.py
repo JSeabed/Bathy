@@ -63,14 +63,6 @@ serAml = serial.Serial('/dev/ttyO2')
 serAml.baudrate = 38400
 serAml.isOpen()
 
-#/////////////////////////////////  Processing the incoming data by splitting it and putting it in usable variables  //////////
-#Clearing data from AML
-def clearAml():
-    global status                                           # Requesting access to global variable named status
-    #global dateNow; dateNow = ''                            # Requesting access to global variable named dateNow, then empty it
-   # global dataToSend; dataToSend = '$SBDAML,,,,,,,,' + status + '\r\n'     # Requesting access to global variable named datToSend, then put an default empty string in it
-                        #Pulling the time from the system and write it into a usable variable
-
 
 def getTime():
     currentDateTimeRaw = datetime.datetime.now() + datetime.timedelta(seconds =1)   # currentDateTime is the current time plus one second 
@@ -217,7 +209,6 @@ def UDPsender():
         global dataToSend
         sock1.sendto(dataToSend, (UDP_IP1, UDP_PORT1))          # send the string to the first IP address over UDP
         sock2.sendto(dataToSend, (UDP_IP2, UDP_PORT2))          # Send the string to the second IP adress over UDP
-        #clearAml()                                              # Clear the string to avoid duplicates 
         getTime()
         time.sleep(0.5)
 
