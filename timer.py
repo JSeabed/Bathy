@@ -131,12 +131,8 @@ def parseAml (raw_mess):
         sock1.sendto(raw_mess + '\r\n', (UDP_IP1, UDP_PORT1))
         sock2.sendto(raw_mess + '\r\n', (UDP_IP2, UDP_PORT2))
     getTime()
-    global dataToSend#; dataToSend = '$SBDAML,,,,,,,,' + status + '\r\n'
+    global dataToSend; dataToSend = '$SBDAML' + ',' + dateNow
     global status
-
-    #i = 1
-    #LinesToSend = ""
-    dataToSend = '$SBDAML' + ',' + dateNow
     LinesToSend = ','.join(sLineAml[1:])
     dataToSend = dataToSend + LinesToSend + status + '\r\n'
     return dataToSend
@@ -161,7 +157,7 @@ def serZdaReader():
             status = ",IZ"                                   # Change the status to IZ (Invalid ZDA)
         else:                                               # If the data is usable 
                 bZdaOntvangen = True
-                #Serial AML (Com2)
+
 def serAmlReader():
     while True:
         b1Line = serAml.readline()                          # read the line from serial ALM and write it to blLine
