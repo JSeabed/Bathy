@@ -39,7 +39,6 @@ sock2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 #/////////////////////////////////   Defining triggers for functions    /////////////////////////////////
 # trigger is used for the PPS input. ZDA is used to monitor the time that has passed since the requested time(?) [original line: This trigger is to keep track of the "freshness" of the ZDA time info]
-
 # AML trigger is to see if there is unsend AML info
 bTrigger = False
 bZdaOntvangen = False
@@ -218,7 +217,7 @@ def UDPsender():
         global dataToSend
         sock1.sendto(dataToSend, (UDP_IP1, UDP_PORT1))          # send the string to the first IP address over UDP
         sock2.sendto(dataToSend, (UDP_IP2, UDP_PORT2))          # Send the string to the second IP adress over UDP
-        clearAml()                                              # Clear the string to avoid duplicates 
+        #clearAml()                                              # Clear the string to avoid duplicates 
         getTime()
         time.sleep(0.5)
 
