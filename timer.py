@@ -6,15 +6,12 @@
 #from test.support import temp_cwd
 
 import os
-import sys
 import serial
 import threading
 import datetime
 import time
-import logging
 import socket
 import Adafruit_BBIO.GPIO as GPIO
-import string
 
 #/////////////////////////////////  Defining variables used for the data splitting    ///////////////////
 date = ''
@@ -88,15 +85,12 @@ def parseZda(raw_message):
         if len(sLines[1]) < 9:
             return None
         realTime = sLines[:2] + ':' + sLines[2:4] + ':' + sLines[4:6] + ',' + sLines[7:]
-        #timeList = (sLines[:2], sLines[2:4], sLines[4:6], sLines[7:])
-        #realTime = zdaParseTime(sLines[1])
-        #realTime = ':'.join(timeList)
+
         print realTime
         if len(sLines[2]) < 2 or len(sLines[3]) < 2 or len(sLines[4]) < 2:      # if string 2, 3 or 4 is longer then 2 digits stop the data
             return None
 
         date = zdaParseDate(sLines)
-
         global dateTime; dateTime = "'" + date + ' ' + realTime +"'"
 
         return ' ZDA OK' + ' >> ' + dateTime           # Send confirmation + data (ZDA OK >> parsed data ) to console and Com1
@@ -104,14 +98,6 @@ def parseZda(raw_message):
     except Exception as e:
         print ('Exception: ' + str(e))
 
-
-def zdaParseTime(tempTime):
-        sHour = tempTime[:2]
-        sMinute = tempTime[2:4]
-        sSecond = tempTime[4:6]
-        sMSecond = tempTime[7:]
-        #Time in format HH:MM:SS
-        return sHour + ':' + sMinute + ':' + sSecond + '.' + sMSecond
 
 def zdaParseDate(sLines):
         #in order: year, month date
@@ -144,7 +130,6 @@ def serZdaReader():
             sLine = bLine.decode(encoding='utf_8')          # decode it into usable data
         except:
             sLine = "0"
-            pass                                            # don't do anything
 
         global bZdaOntvangen                                # Requesting access to global variable named bZdaOntvangen
         global status                                       # Requesting access to global variable named status
@@ -152,9 +137,12 @@ def serZdaReader():
 
         if dateTime is None:                               # if there is no usable data print "dateTime is none"
             print('dateTime is none:')
-            bZdaOntvangen = False                           # Boolean bZdaOntvangen is set to False
-            status = ",IZ"                                   # Change the status to IZ (Invalid ZDA)
-        else:                                               # If the data is usable 
+           # Change the status to IZ (Invalid ZDA)
+            bZdaOntvangen = False
+            status = ",IZ"
+
+        # If the data is usable 
+        else:
                 bZdaOntvangen = True
 
 def serAmlReader():
