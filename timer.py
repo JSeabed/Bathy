@@ -110,6 +110,7 @@ def parseAml (raw_mess):
     global UDP_IP2
     global UDP_PORT2   
     global sLineAml; sLineAml = raw_mess.split('  ')        # with split() each space seperated piece of raw_mess is written in array sLinesAml. 
+    print sLineAml
     if len(sLineAml) < 2:                                   # if the data is shorter then 5 blocks of data run next line
         sock1.sendto(raw_mess + '\r\n', (UDP_IP1, UDP_PORT1))
         sock2.sendto(raw_mess + '\r\n', (UDP_IP2, UDP_PORT2))
