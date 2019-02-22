@@ -188,7 +188,7 @@ def UDPsender():
         sock1.sendto(dataToSend, (UDP_IP1, UDP_PORT1))          # send the string to the first IP address over UDP
         sock2.sendto(dataToSend, (UDP_IP2, UDP_PORT2))          # Send the string to the second IP adress over UDP
         getTime()
-        time.sleep(0.1)
+        time.sleep(0.05)
 
 
 #Start thread Ethernet UDP
