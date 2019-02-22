@@ -6,15 +6,12 @@
 #from test.support import temp_cwd
 
 import os
-import sys
 import serial
 import threading
 import datetime
 import time
-import logging
 import socket
 import Adafruit_BBIO.GPIO as GPIO
-import string
 
 #/////////////////////////////////  Defining variables used for the data splitting    ///////////////////
 date = ''
@@ -67,7 +64,6 @@ def getTime():
     currentTime = currentDateTime.split(',')                    # with split() each comma seperated piece of currentDateTime is written in array currentTime.   
     global dateNow; dateNow = currentTime[1] + '-' + currentTime[2] + '-' + currentTime[3] + ',' + currentTime[0]   # The combined data of day+month+year makes the variable dateNow (date)     
 
-
 #Splitting the ZDA data into 8 variables, then process it to time and date
 def parseZda(raw_message):
     global bZdaOntvangen
@@ -92,7 +88,6 @@ def parseZda(raw_message):
     except Exception as e:
         print ('Exception: ' + str(e))
 
-
 def zdaParseTime(tempTime):
         #Time in format HH:MM:SS
         return tempTime[:2] + ':' + tempTime[2:4] + ':' + tempTime[4:6] + '.' + tempTime[7:]
@@ -100,8 +95,6 @@ def zdaParseTime(tempTime):
 def zdaParseDate(sLines):
         #in order: year, month date
         return sLines[4] + '-' + sLines[3] + '-' + sLines[2]
-
-
 
 # Splitting the AML Data into variables and combining with time
 def parseAml (raw_mess):
@@ -149,14 +142,12 @@ def serAmlReader():
         isAmlValid = parseAml(s1Line)                       # turn the raw data into usable data blocks
         global bZdaOntvangen
 
-
 #////////////////////////////////////// Serial Write loops  /////////////////////////////////////////////
 def writeCom1(textToWrite):                                                 # Serial port 1 ZDA Writer
     serZda.write(textToWrite.encode(encoding='utf_8', errors='strict'))     # Encode data to serial protocol for Com1
 
 def writeCom2(textToWrite):                                                 # Serial poort 2 AML Writer
     serAml.write(textToWrite.encode(encoding='utf_8', errors='strict'))     # Encode data to serial protocol for Com2
-
 
 #///////////////////////////////// This is what happenes when pin 7 (PPS) goes high   ///////////////////
 def pulse(channel):
@@ -175,7 +166,6 @@ def pulse(channel):
                         #This is the detector that sees the pin goes high then starts the function pulse
 GPIO.add_event_detect("P9_42", GPIO.RISING, callback=pulse, bouncetime = 300)  # When the triggerpin goes high start function pulse()
 
-
 #////////////////////////////////////// Ethernet write loops   //////////////////////////////////////////
 def UDPsender():
     global UDP_IP1
@@ -189,7 +179,6 @@ def UDPsender():
         sock2.sendto(dataToSend, (UDP_IP2, UDP_PORT2))          # Send the string to the second IP adress over UDP
         getTime()
         time.sleep(0.05)
-
 
 #Start thread Ethernet UDP
 thrUDP = threading.Thread(name='UDPsender', target=UDPsender) # Create a thread for serial communication(thrAML) 
