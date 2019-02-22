@@ -118,7 +118,7 @@ def parseAml (raw_mess):
     global dataToSend; dataToSend = '$SBDAML' + ',' + dateNow
     global status
     LinesToSend = ','.join(sLineAml[1:])
-    dataToSend = dataToSend + LinesToSend + status + '\r\n'
+    dataToSend = dataToSend +',' LinesToSend + status + '\r\n'
     return dataToSend
 
 #/////////////////////////////////   Serial receive loops   /////////////////////////////////////////////
