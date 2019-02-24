@@ -4,7 +4,7 @@ import sys
 sys.path.append('../')
 
 #import aml
-import bathy_timer
+import timer
 
 class Test_Aml(unittest.TestCase):
 
