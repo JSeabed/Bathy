@@ -96,11 +96,10 @@ def UDPsender():
     global UDP_PORT1
     global UDP_IP2
     global UDP_PORT2
-
+    GPIO.add_event_detect("P9_42", GPIO.RISING, callback=pulse, bouncetime = 300)    
     while True:
         dataToSend_raw = aml.serAmlReader()
         dataToSend = dataToSend_raw + '\r\n'
-        GPIO.add_event_detect("P9_42", GPIO.RISING, callback=pulse, bouncetime = 300)
         # send the string to the first IP address over UDP
         sock1.sendto(dataToSend, (UDP_IP1, UDP_PORT1))
 
