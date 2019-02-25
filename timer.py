@@ -112,7 +112,7 @@ thrUDP = threading.Thread(name='UDPsender', target=UDPsender) # Create a thread 
 thrUDP.start()
 
 # Start thread serial 1 ZDA Reader
-thrZda = threading.Thread(name='serZdaReader', target=serZdaReader) # Create a thread for serial communication(thrZDA) 
+thrZda = threading.Thread(name='serZdaReader', target=zda.serZdaReader) # Create a thread for serial communication(thrZDA) 
 thrZda.start()
 
 # Start thread serial 2 AML Reader
