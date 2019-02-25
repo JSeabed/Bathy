@@ -71,6 +71,7 @@ def writeCom2(textToWrite):
 
 
 #///////////////////////////////// This is what happenes when pin 7 (PPS) goes high   ///////////////////
+#this function needs to be triggered by the gpio pins so that it can synchronise the time of the beaglebone with the receiver. the pps pulse is connected to gpio P9_42.
 def pulse(channel):
     bZdaOntvangen = zda.serZdaReader()
     global dateTime
@@ -96,7 +97,6 @@ def UDPsender():
     global UDP_PORT1
     global UDP_IP2
     global UDP_PORT2
-    GPIO.add_event_detect("P9_42", GPIO.RISING, callback=pulse, bouncetime = 300)    
     while True:
         dataToSend_raw = aml.serAmlReader()
         dataToSend = dataToSend_raw + '\r\n'
