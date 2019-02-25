@@ -1,3 +1,5 @@
+import datetime
+
 # Splitting the AML Data into variables and combining with time
 def parseAml (raw_mess):
     #Getting some global variables
