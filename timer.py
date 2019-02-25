@@ -89,6 +89,7 @@ def pulse(channel):
         status = ',NZ'
         bZdaOntvangen = False
     print status
+GPIO.add_event_detect("P9_42", GPIO.RISING, callback=pulse, bouncetime = 300)
 
 
 #////////////////////////////////////// Ethernet write loops   //////////////////////////////////////////
