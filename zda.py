@@ -1,3 +1,4 @@
+import serial
 #/////////////////////////////////   Serial receive loops   /////////////////////////////////////////////
 def serZdaReader():
     # Open Com port of GPZDA (Connected through P9_26)
