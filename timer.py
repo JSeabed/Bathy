@@ -72,7 +72,6 @@ def writeCom2(textToWrite):
 def pulse(channel):
     global bZdaOntvangen
     global dateTime
-    global status
     print('pulse bench test')
 
     # Checking if the data has been received and setting the system time to the received date.

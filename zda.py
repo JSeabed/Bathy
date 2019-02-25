@@ -17,7 +17,6 @@ def serZdaReader():
         # Requesting access to global variable named bZdaOntvangen
         global bZdaOntvangen
         # Requesting access to global variable named status
-        global status
         # parse the raw data string into usable variables
         dateTime = parseZda(sLine)
 
@@ -36,9 +35,6 @@ def serZdaReader():
 
 #Splitting the ZDA data into 8 variables, then process it to time and date
 def parseZda(raw_message):
-    global bZdaOntvangen
-    global status
-
     # if no data is sent stop the madness
     # (Stefan: legendary comment by our lord sebas. We should keep this comment)
     if raw_message is None:
