@@ -101,7 +101,7 @@ def UDPsender():
         # Send the string to the second IP adress over UDP
         sock2.sendto(dataToSend, (UDP_IP2, UDP_PORT2))
 
-        getTime()
+        timeAml = aml.getTime()
         time.sleep(0.5)
 
 
