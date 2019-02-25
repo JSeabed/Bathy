@@ -11,6 +11,7 @@ import time
 import socket
 import aml
 import zda
+import Adafruit_BBIO.GPIO as GPIO
 
 #import gpio
 
@@ -21,6 +22,7 @@ dataToSend = '$SBDAML,,,,,,,,ST' + '\r\n'
 timeNow = ''
 dateTime = '' 
 setTime = '' 
+GPIO.setup("P9_42", GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 # IP adresses and ports for Ethernet transfers
 UDP_IP1 = "10.68.5.91"      
@@ -70,7 +72,7 @@ def writeCom2(textToWrite):
 
 #///////////////////////////////// This is what happenes when pin 7 (PPS) goes high   ///////////////////
 def pulse(channel):
-    global bZdaOntvangen
+    bZdaOntvangen = serZdaReader()
     global dateTime
     print('pulse bench test')
 
@@ -85,7 +87,7 @@ def pulse(channel):
     else:
         status = ',NZ'
         bZdaOntvangen = False
-
+GPIO.add_event_detect("P9_42", GPIO.RISING, callback=pulse, bouncetime = 300)
 
 #////////////////////////////////////// Ethernet write loops   //////////////////////////////////////////
 def UDPsender():
