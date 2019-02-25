@@ -18,9 +18,8 @@ def parseAml (raw_mess):
 
     dateNow = getTime()
     global dataToSend; dataToSend = '$SBDAML' + ',' + dateNow
-    global status
     LinesToSend = ','.join(sLineAml[1:])
-    dataToSend = dataToSend + LinesToSend + status + '\r\n'
+    dataToSend = dataToSend + LinesToSend
     return dataToSend
 
 def serAmlReader():
@@ -34,13 +33,14 @@ def serAmlReader():
 
         result = "$SBDAML,01-01-2000,02:17:02.722622,0000.000,00.000,21.923,0001.567,008.07,00.000,0000.000,0000.00,st"
         dummy = "0000.000  00.000  21.158  0001.534  008.07  00.000  0000.000  0000.00"
-        b1Line = dummy
+        #b1Line = dummy
         # Decode the data from serial ALM to usable data
         s1Line = b1Line.decode(encoding='utf_8')
         s1Line = s1Line.rstrip(' ' +'\r\n')
         # turn the raw data into usable data blocks
         isAmlValid = parseAml(s1Line)
         global bZdaOntvangen
+        return isAmlValid
 
 def getTime():
     # currentDateTime is the current time plus one second 
