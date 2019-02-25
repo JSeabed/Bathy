@@ -24,6 +24,9 @@ def parseAml (raw_mess):
     return dataToSend
 
 def serAmlReader():
+    serAml = serial.Serial('/dev/ttyO2')
+    serAml.baudrate = 38400
+    serAml.isOpen()
     while True:
         # read the line from serial ALM and write it to blLine
         b1Line = serAml.readline()
