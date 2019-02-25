@@ -24,6 +24,7 @@ def parseAml (raw_mess):
     return dataToSend
 
 def serAmlReader():
+    import serial
     serAml = serial.Serial('/dev/ttyO2')
     serAml.baudrate = 38400
     serAml.isOpen()
