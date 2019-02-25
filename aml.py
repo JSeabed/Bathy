@@ -14,7 +14,7 @@ def parseAml (raw_mess):
         sock1.sendto(raw_mess + '\r\n', (UDP_IP1, UDP_PORT1))
         sock2.sendto(raw_mess + '\r\n', (UDP_IP2, UDP_PORT2))
 
-    getTime()
+    dateNow = getTime()
     global dataToSend; dataToSend = '$SBDAML' + ',' + dateNow
     global status
     LinesToSend = ','.join(sLineAml[1:])
@@ -35,3 +35,12 @@ def serAmlReader():
         # turn the raw data into usable data blocks
         isAmlValid = parseAml(s1Line)
         global bZdaOntvangen
+
+def getTime():
+    # currentDateTime is the current time plus one second 
+    currentDateTimeRaw = datetime.datetime.now() + datetime.timedelta(seconds =1)
+    currentDateTime = currentDateTimeRaw.strftime('%H:%M:%S.%f,%d,%m,%Y')
+    currentTime = currentDateTime.split(',')
+    # format is day+month+year
+    return  currentTime[1] + '-' + currentTime[2] + '-' + currentTime[3] + ',' + currentTime[0]
+

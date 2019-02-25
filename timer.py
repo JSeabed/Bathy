@@ -2,8 +2,6 @@
 # Modified by Sebastiaan van Essen 07/2016
 # This code combines the time precision of the GNSS network and data from ALM sensors
 # and sends the data via Ethernet to a computer as a stand alone module.
-#from _overlapped import NULL
-#from test.support import temp_cwd
 
 import os
 import serial
@@ -18,7 +16,6 @@ import socket
 date = ''
 status = ',st'
 dataToSend = '$SBDAML,,,,,,,,ST' + '\r\n'
-dateNow = ''
 timeNow = ''
 dateTime = '' 
 setTime = '' 
@@ -36,40 +33,37 @@ sock1 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 #/////////////////////////////////   Defining triggers for functions    /////////////////////////////////
-# trigger is used for the PPS input. ZDA is used to monitor the time that has passed since the requested time(?) [original line: This trigger is to keep track of the "freshness" of the ZDA time info]
+# trigger is used for the PPS input. ZDA is used to monitor the time that has passed since the requested time(?)
+# [original line: This trigger is to keep track of the "freshness" of the ZDA time info]
 # AML trigger is to see if there is unsend AML info
 bTrigger = False
 bZdaOntvangen = False
 bAmlOntvangen = False
 
 
-#Open Com port of GPZDA (Connected through P9_26)
+# Open Com port of GPZDA (Connected through P9_26)
 # Linking serZDA to the correct Com port with the correct baudrate and setting the state of the port to open.
 serZda = serial.Serial('/dev/ttyO1')
 serZda.baudrate = 19200
 serZda.isOpen()
 
-#Open Com port of AML (connected through P9_21 and P9_22)
+# Open Com port of AML (connected through P9_21 and P9_22)
 # Linking serAml to the correct Com port with the correct baudrate and setting the state of the port to open.
 serAml = serial.Serial('/dev/ttyO2')
 serAml.baudrate = 38400
 serAml.isOpen()
 
-def getTime():
-    # currentDateTime is the current time plus one second 
-    currentDateTimeRaw = datetime.datetime.now() + datetime.timedelta(seconds =1)
-    currentDateTime = currentDateTimeRaw.strftime('%H:%M:%S.%f,%d,%m,%Y')
-    currentTime = currentDateTime.split(',')
-    # format is day+month+year
-    global dateNow; dateNow = currentTime[1] + '-' + currentTime[2] + '-' + currentTime[3] + ',' + currentTime[0]
-
 
 #////////////////////////////////////// Serial Write loops  /////////////////////////////////////////////
-def writeCom1(textToWrite):                                                 # Serial port 1 ZDA Writer
-    serZda.write(textToWrite.encode(encoding='utf_8', errors='strict'))     # Encode data to serial protocol for Com1
+# Serial port 1 ZDA Writer
+def writeCom1(textToWrite):
+    # Encode data to serial protocol for Com1
+    serZda.write(textToWrite.encode(encoding='utf_8', errors='strict'))
 
-def writeCom2(textToWrite):                                                 # Serial poort 2 AML Writer
-    serAml.write(textToWrite.encode(encoding='utf_8', errors='strict'))     # Encode data to serial protocol for Com2
+# Serial poort 2 AML Writer
+def writeCom2(textToWrite):
+    # Encode data to serial protocol for Com2
+    serAml.write(textToWrite.encode(encoding='utf_8', errors='strict'))
 
 
 #///////////////////////////////// This is what happenes when pin 7 (PPS) goes high   ///////////////////
@@ -79,7 +73,7 @@ def pulse(channel):
     global status
     print('pulse bench test')
 
-    #checking if the data has been received and setting the system time to the received date.
+    # Checking if the data has been received and setting the system time to the received date.
     # After setting the time the statement gets reset to False for checking in the next cycle. status is also 
     if bZdaOntvangen is True:
         # Sets the system time to dateTime (the time set per ZDA)
@@ -111,14 +105,14 @@ def UDPsender():
         time.sleep(0.5)
 
 
-#Start thread Ethernet UDP
+# Start thread Ethernet UDP
 thrUDP = threading.Thread(name='UDPsender', target=UDPsender) # Create a thread for serial communication(thrAML) 
 thrUDP.start()
 
-#Start thread serial 1 ZDA Reader
+# Start thread serial 1 ZDA Reader
 thrZda = threading.Thread(name='serZdaReader', target=serZdaReader) # Create a thread for serial communication(thrZDA) 
 thrZda.start()
 
-#Start thread serial 2 AML Reader
+# Start thread serial 2 AML Reader
 thrAml = threading.Thread(name='serAmlReader', target=serAmlReader) # Create a thread for serial communication(thrAML) 
 thrAml.start()
