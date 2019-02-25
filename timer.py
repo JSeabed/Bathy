@@ -72,7 +72,7 @@ def writeCom2(textToWrite):
 
 #///////////////////////////////// This is what happenes when pin 7 (PPS) goes high   ///////////////////
 def pulse(channel):
-    bZdaOntvangen = serZdaReader()
+    bZdaOntvangen = zda.serZdaReader()
     global dateTime
     print('pulse bench test')
 
