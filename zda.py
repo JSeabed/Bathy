@@ -31,7 +31,7 @@ def serZdaReader():
         # If the data is usable 
         else:
                 bZdaOntvangen = True
-    return 
+    return status
 
 
 #Splitting the ZDA data into 8 variables, then process it to time and date
