@@ -1,5 +1,10 @@
 #/////////////////////////////////   Serial receive loops   /////////////////////////////////////////////
 def serZdaReader():
+    # Open Com port of GPZDA (Connected through P9_26)
+# Linking serZDA to the correct Com port with the correct baudrate and setting the state of the port to open.
+    serZda = serial.Serial('/dev/ttyO1')
+    serZda.baudrate = 19200
+    serZda.isOpen() 
     while True:
         bLine = serZda.readline()
         try:
