@@ -88,7 +88,7 @@ def pulse(channel):
         status = ',NZ'
         bZdaOntvangen = False
     print status
-GPIO.add_event_detect("P9_42", GPIO.RISING, callback=pulse, bouncetime = 300)
+
 
 #////////////////////////////////////// Ethernet write loops   //////////////////////////////////////////
 def UDPsender():
@@ -100,6 +100,7 @@ def UDPsender():
     while True:
         dataToSend_raw = aml.serAmlReader()
         dataToSend = dataToSend_raw + '\r\n'
+        GPIO.add_event_detect("P9_42", GPIO.RISING, callback=pulse, bouncetime = 300)
         # send the string to the first IP address over UDP
         sock1.sendto(dataToSend, (UDP_IP1, UDP_PORT1))
 
