@@ -9,9 +9,11 @@ import threading
 import datetime
 import time
 import socket
+import Adafruit_BBIO.GPIO as GPIO
+
 import aml
 import zda
-import Adafruit_BBIO.GPIO as GPIO
+
 
 #import gpio
 
@@ -24,17 +26,8 @@ dateTime = ''
 setTime = '' 
 GPIO.setup("P9_42", GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-# IP adresses and ports for Ethernet transfers
-UDP_IP1 = "10.68.5.91"      
-#UDP_IP1 = "172.16.10.50"
-UDP_PORT1 = 5001
-#UDP_IP2 = "10.68.5.92"      
-UDP_IP2 = "172.16.10.50"
-UDP_PORT2 = 5001
 
 # naming the sockets for UDP communication
-sock1 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 #/////////////////////////////////   Defining triggers for functions    /////////////////////////////////
 # trigger is used for the PPS input. ZDA is used to monitor the time that has passed since the requested time(?)
@@ -94,10 +87,17 @@ GPIO.add_event_detect("P9_42", GPIO.RISING, callback=pulse, bouncetime = 300)
 
 #////////////////////////////////////// Ethernet write loops   //////////////////////////////////////////
 def UDPsender():
-    global UDP_IP1
-    global UDP_PORT1
-    global UDP_IP2
-    global UDP_PORT2
+    # IP adresses and ports for Ethernet transfers
+    UDP_IP1 = "10.68.5.91"      
+    # UDP_IP1 = "172.16.10.50"
+    UDP_PORT1 = 5001
+    # UDP_IP2 = "10.68.5.92"      
+    UDP_IP2 = "172.16.10.50"
+    UDP_PORT2 = 5001
+
+    sock1 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
     while True:
         dataToSend_raw = aml.serAmlReader()
         dataToSend = dataToSend_raw + '\r\n'

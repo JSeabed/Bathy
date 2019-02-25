@@ -1,13 +1,21 @@
+# Splitting the AML Data into variables and combining with time
+# parseAml gets called from within serAmlReader and is expected to
+# return a value that is to be send over the sockets to the designated IP adresses.
+# This function 
+
 import datetime
 import serial
-# Splitting the AML Data into variables and combining with time
-# parseAml gets called from within serAmlReader and is expected to return a value that is to be send over the sockets to the designated IP adresses. this function 
+
 def parseAml (raw_mess):
-    #Getting some global variables
-    global UDP_IP1
-    global UDP_PORT1
-    global UDP_IP2
-    global UDP_PORT2   
+    UDP_IP1 = "10.68.5.91"
+    UDP_PORT1 = 5001
+
+    UDP_IP2 = "172.16.10.50"
+    UDP_PORT2 = 5001
+
+    sock1 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
     # with split() each space seperated piece of raw_mess is written in array sLinesAml. 
     sLineAml = raw_mess.split('  ')
     print sLineAml
