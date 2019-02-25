@@ -95,7 +95,8 @@ def UDPsender():
     global UDP_PORT2
 
     while True:
-        dataToSend = aml.serAmlReader()
+        dataToSend_raw = aml.serAmlReader()
+        dataToSend = dataToSend_raw + '\r\n'
         # send the string to the first IP address over UDP
         sock1.sendto(dataToSend, (UDP_IP1, UDP_PORT1))
 
