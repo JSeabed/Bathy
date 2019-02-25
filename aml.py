@@ -20,7 +20,7 @@ def parseAml (raw_mess):
     dateNow = getTime()
     dataToSend = '$SBDAML' + ',' + dateNow
     LinesToSend = ','.join(sLineAml[1:])
-    dataToSend = dataToSend + LinesToSend
+    dataToSend = dataToSend + ',' + LinesToSend
     return dataToSend
 
 def serAmlReader():
