@@ -116,5 +116,5 @@ thrZda = threading.Thread(name='serZdaReader', target=zda.serZdaReader) # Create
 thrZda.start()
 
 # Start thread serial 2 AML Reader
-thrAml = threading.Thread(name='serAmlReader', target=serAmlReader) # Create a thread for serial communication(thrAML) 
+thrAml = threading.Thread(name='serAmlReader', target=aml.serAmlReader) # Create a thread for serial communication(thrAML) 
 thrAml.start()
