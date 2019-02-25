@@ -1,6 +1,7 @@
 import datetime
 import serial
 # Splitting the AML Data into variables and combining with time
+# parseAml gets called from within serAmlReader and is expected to return a value that is to be send over the sockets to the designated IP adresses. this function 
 def parseAml (raw_mess):
     #Getting some global variables
     global UDP_IP1
@@ -8,16 +9,16 @@ def parseAml (raw_mess):
     global UDP_IP2
     global UDP_PORT2   
     # with split() each space seperated piece of raw_mess is written in array sLinesAml. 
-    global sLineAml; sLineAml = raw_mess.split('  ')
+    sLineAml = raw_mess.split('  ')
     print sLineAml
 
     # if the data is shorter then 5 blocks of data run next line
     if len(sLineAml) < 2:
         sock1.sendto(raw_mess + '\r\n', (UDP_IP1, UDP_PORT1))
         sock2.sendto(raw_mess + '\r\n', (UDP_IP2, UDP_PORT2))
-
+#
     dateNow = getTime()
-    global dataToSend; dataToSend = '$SBDAML' + ',' + dateNow
+    dataToSend = '$SBDAML' + ',' + dateNow
     LinesToSend = ','.join(sLineAml[1:])
     dataToSend = dataToSend + LinesToSend
     return dataToSend
