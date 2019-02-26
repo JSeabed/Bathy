@@ -7,7 +7,6 @@ def serZdaReader():
     serZda = serial.Serial('/dev/ttyO1')
     serZda.baudrate = 19200
     serZda.isOpen() 
-    pulsetrigger = pulsegpio.pulseTrigger()
     while True:
         bLine = serZda.readline()
         try:
