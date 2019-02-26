@@ -30,6 +30,7 @@ def serZdaReader():
         # If the data is usable 
         else:
                 bZdaOntvangen = True
+                print('dateTime is good')
     return bZdaOntvangen
 
 
