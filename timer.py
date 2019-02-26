@@ -10,7 +10,7 @@ import datetime
 import time
 import socket
 import Adafruit_BBIO.GPIO as GPIO
-
+import gpio
 import aml
 import zda
 
@@ -123,3 +123,8 @@ thrZda.start()
 # Start thread serial 2 AML Reader
 thrAml = threading.Thread(name='serAmlReader', target=aml.serAmlReader) # Create a thread for serial communication(thrAML) 
 thrAml.start()
+
+# Start thread gpio PPS synchronization
+thrGPIO = threading.Thread(name='UDPsender', target=gpio.pulseTrigger) # Create a thread for serial communication(thrAML) 
+thrGPIO.start()
+
