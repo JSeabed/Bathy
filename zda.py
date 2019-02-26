@@ -13,9 +13,7 @@ def serZdaReader():
             sLine = bLine.decode(encoding='utf_8')
         except:
             sLine = "0"
-
         # Requesting access to global variable named bZdaOntvangen
-        global bZdaOntvangen
         # Requesting access to global variable named status
         # parse the raw data string into usable variables
         dateTime = parseZda(sLine)
