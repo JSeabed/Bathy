@@ -10,7 +10,7 @@ import datetime
 import time
 import socket
 import Adafruit_BBIO.GPIO as GPIO
-import gpio
+import pulsegpio
 import aml
 import zda
 
