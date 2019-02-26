@@ -82,7 +82,6 @@ def pulse(channel):
         status = ',NZ'
         bZdaOntvangen = False
     print status
-GPIO.add_event_detect("P9_42", GPIO.RISING, callback=pulse, bouncetime = 300)
 
 
 #////////////////////////////////////// Ethernet write loops   //////////////////////////////////////////
@@ -110,6 +109,7 @@ def UDPsender():
         timeAml = aml.getTime()
         time.sleep(0.5)
 
+GPIO.add_event_detect("P9_42", GPIO.RISING, callback=pulse, bouncetime = 300)
 
 # Start thread Ethernet UDP
 thrUDP = threading.Thread(name='UDPsender', target=UDPsender) # Create a thread for serial communication(thrAML) 
