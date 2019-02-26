@@ -123,8 +123,3 @@ thrZda.start()
 # Start thread serial 2 AML Reader
 thrAml = threading.Thread(name='serAmlReader', target=aml.serAmlReader) # Create a thread for serial communication(thrAML) 
 thrAml.start()
-
-# Start thread gpio PPS synchronization
-thrGPIO = threading.Thread(name='GPIOinitializer', target=gpio.pulseTrigger) # Create a thread for serial communication(thrAML) 
-thrGPIO.start()
-

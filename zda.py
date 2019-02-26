@@ -1,4 +1,5 @@
 import serial
+import gpio
 #/////////////////////////////////   Serial receive loops   /////////////////////////////////////////////
 def serZdaReader():
 # Open Com port of GPZDA (Connected through P9_26)
@@ -6,6 +7,7 @@ def serZdaReader():
     serZda = serial.Serial('/dev/ttyO1')
     serZda.baudrate = 19200
     serZda.isOpen() 
+     i = gpio.pulseTrigger()
     while True:
         bLine = serZda.readline()
         try:
