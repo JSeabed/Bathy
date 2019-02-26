@@ -5,6 +5,7 @@
 
 import datetime
 import serial
+import socket
 
 def parseAml (raw_mess):
     UDP_IP1 = "10.68.5.91"
