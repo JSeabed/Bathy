@@ -66,7 +66,7 @@ def writeCom2(textToWrite):
 #///////////////////////////////// This is what happenes when pin 7 (PPS) goes high   ///////////////////
 #this function needs to be triggered by the gpio pins so that it can synchronise the time of the beaglebone with the receiver. the pps pulse is connected to gpio P9_42.
 def pulse(channel):
-    bZdaOntvangen = zda.serZdaReader()
+    #bZdaOntvangen = zda.serZdaReader()
     print bZdaOntvangen
     global dateTime
     print('pulse bench test')
