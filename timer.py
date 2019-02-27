@@ -9,8 +9,10 @@ import threading
 import datetime
 import time
 import socket
+
 import Adafruit_BBIO.GPIO as GPIO
 import pulsegpio
+
 import aml
 import zda
 
@@ -33,7 +35,6 @@ GPIO.setup("P9_42", GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 # trigger is used for the PPS input. ZDA is used to monitor the time that has passed since the requested time(?)
 # [original line: This trigger is to keep track of the "freshness" of the ZDA time info]
 # AML trigger is to see if there is unsend AML info
-bTrigger = False
 bZdaOntvangen = False
 bAmlOntvangen = False
 

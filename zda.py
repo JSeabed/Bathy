@@ -60,11 +60,11 @@ def parseZda(raw_message):
         print ('Exception: ' + str(e))
 
 
+# Time in format HH:MM:SS
 def zdaParseTime(tempTime):
-        #Time in format HH:MM:SS
         return tempTime[:2] + ':' + tempTime[2:4] + ':' + tempTime[4:6] + '.' + tempTime[7:]
 
+# In order: year, month date
 def zdaParseDate(sLines):
-        #in order: year, month date
         return sLines[4] + '-' + sLines[3] + '-' + sLines[2]
 
