@@ -52,18 +52,6 @@ serAml.baudrate = 38400
 serAml.isOpen()
 
 
-#////////////////////////////////////// Serial Write loops  /////////////////////////////////////////////
-# Serial port 1 ZDA Writer
-def writeCom1(textToWrite):
-    # Encode data to serial protocol for Com1
-    serZda.write(textToWrite.encode(encoding='utf_8', errors='strict'))
-
-# Serial poort 2 AML Writer
-def writeCom2(textToWrite):
-    # Encode data to serial protocol for Com2
-    serAml.write(textToWrite.encode(encoding='utf_8', errors='strict'))
-
-
 #///////////////////////////////// This is what happenes when pin 7 (PPS) goes high   ///////////////////
 #this function needs to be triggered by the gpio pins so that it can synchronise the time of the beaglebone with the receiver. the pps pulse is connected to gpio P9_42.
 def pulse(channel):
