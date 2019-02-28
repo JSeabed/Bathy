@@ -34,11 +34,12 @@ def parseAml (raw_mess):
 
 def serAmlReader():
     import serial
-# Open Com port of AML (connected through P9_21 and P9_22)
-# Linking serAml to the correct Com port with the correct baudrate and setting the state of the port to open.
+    # Open Com port of AML (connected through P9_21 and P9_22)
+    # Linking serAml to the correct Com port with the correct baudrate and setting the state of the port to open.
     serAml = serial.Serial('/dev/ttyO2')
     serAml.baudrate = 38400
     serAml.isOpen()
+
     while True:
         # read the line from serial ALM and write it to blLine
         b1Line = serAml.readline()

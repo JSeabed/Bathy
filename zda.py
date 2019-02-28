@@ -1,5 +1,6 @@
 import serial
 import pulsegpio
+
 #/////////////////////////////////   Serial receive loops   /////////////////////////////////////////////
 def serZdaReader():
 # Open Com port of GPZDA (Connected through P9_26)
@@ -10,7 +11,6 @@ def serZdaReader():
     while True:
         bLine = serZda.readline()
         try:
-            # decode it into usable data
             sLine = bLine.decode(encoding='utf_8')
         except:
             sLine = "0"
@@ -19,10 +19,9 @@ def serZdaReader():
         # parse the raw data string into usable variables
         dateTime = parseZda(sLine)
 
-        # if there is no usable data print "dateTime is none"
+        # If there is no usable data print "dateTime is none"
         if dateTime is None:
-            print('dateTime is none:')
-            # Boolean bZdaOntvangen is set to False
+            # print('dateTime is none:')
             bZdaOntvangen = False
             # Change the status to IZ (Invalid ZDA)
             status = ",IZ"
@@ -32,23 +31,24 @@ def serZdaReader():
     return bZdaOntvangen
 
 
-#Splitting the ZDA data into 8 variables, then process it to time and date
+# Splitting the ZDA data into 8 variables, then process it to time and date
 def parseZda(raw_message):
-    # if no data is sent stop the madness
+    # If no data is sent stop the madness
     # (Stefan: legendary comment by our lord sebas. We should keep this comment)
     if raw_message is None:
         return None
 
     try:
-        # with split() each comma seperated piece of raw_message is written in array sLines.
         sLines = raw_message.split(',')
-        # if the data contains less then 7 blocks
+
         if len(sLines) < 7:
             return None
         if len(sLines[1]) < 9:
             return None
+
         realTime = zdaParseTime(sLines[1])
-        # if string 2, 3 or 4 is longer then 2 digits stop the data
+
+        # If string 2, 3 or 4 is longer then 2 digits stop the data
         if len(sLines[2]) < 2 or len(sLines[3]) < 2 or len(sLines[4]) < 2:
             return None
         date = zdaParseDate(sLines)
