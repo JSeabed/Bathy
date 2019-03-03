@@ -10,8 +10,8 @@ import datetime
 import time
 import socket
 
-import Adafruit_BBIO.GPIO as GPIO
-import pulsegpio
+#import Adafruit_BBIO.GPIO as GPIO
+#import pulsegpio
 
 import aml
 import zda
@@ -19,7 +19,6 @@ import zda
 
 #import gpio
 
-#/////////////////////////////////  Defining variables used for the data splitting    ///////////////////
 date = ''
 status = ',st'
 dataToSend = '$SBDAML,,,,,,,,ST' + '\r\n'
