@@ -50,12 +50,13 @@ serAml.isOpen()
 
 #///////////////////////////////// This is what happenes when pin 7 (PPS) goes high   ///////////////////
 #this function needs to be triggered by the gpio pins so that it can synchronise the time of the beaglebone with the receiver. the pps pulse is connected to gpio P9_42.
+#the pulse function is only called when there is an analog pulse detected on designated pin. the only information that this function requeres to opperate is the time that was send over the ZDA string.
 def pulse(channel):
     #bZdaOntvangen = zda.serZdaReader()
     #print bZdaOntvangen
     global dateTime
     print('pulse bench test')
-
+    
     # Checking if the data has been received and setting the system time to the received date.
     # After setting the time the statement gets reset to False for checking in the next cycle. status is also 
     if bZdaOntvangen is True:
