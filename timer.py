@@ -9,8 +9,7 @@ import threading
 import datetime
 import time
 import socket
-
-#import Adafruit_BBIO.GPIO as GPIO
+import Adafruit_BBIO.GPIO as GPIO
 #import pulsegpio
 
 import aml
