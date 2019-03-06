@@ -1,5 +1,6 @@
 import serial
 import pulsegpio
+import timer
 
 #/////////////////////////////////   Serial receive loops   /////////////////////////////////////////////
 def serZdaReader():
@@ -18,18 +19,7 @@ def serZdaReader():
         # Requesting access to global variable named status
         # parse the raw data string into usable variables
         dateTime = parseZda(sLine)
-
-        # If there is no usable data print "dateTime is none"
-        if dateTime is None:
-            # print('dateTime is none:')
-            bZdaOntvangen = False
-            # Change the status to IZ (Invalid ZDA)
-            status = ",IZ"
-        # If the data is usable 
-        else:
-                bZdaOntvangen = True
-    return bZdaOntvangen
-
+    return dateTime
 
 # Splitting the ZDA data into 8 variables, then process it to time and date
 def parseZda(raw_message):
@@ -67,4 +57,3 @@ def zdaParseTime(tempTime):
 # In order: year, month date
 def zdaParseDate(sLines):
         return sLines[4] + '-' + sLines[3] + '-' + sLines[2]
-

@@ -54,20 +54,19 @@ serAml.isOpen()
 def pulse(channel):
     #bZdaOntvangen = zda.serZdaReader()
     #print bZdaOntvangen
-    global dateTime
-    print('pulse bench test')
-    
+    dateTime = zda.serZdaReader()
+            # If there is no usable data print "dateTime is none"
+    if dateTime is None:
+            # print('dateTime is none:')
+        bZdaOntvangen = False
+            # Change the status to IZ (Invalid ZDA)
+        status = ",IZ"
+        # If the data is usable 
+    else:
+        os.system('date -s %s' % dateTime)
+        status = ",OK"
     # Checking if the data has been received and setting the system time to the received date.
     # After setting the time the statement gets reset to False for checking in the next cycle. status is also 
-    if bZdaOntvangen is True:
-        # Sets the system time to dateTime (the time set per ZDA)
-        os.system('date -s %s' % dateTime)
-        # status is set to ok as all seems ok
-        status = ",OK"
-       # bZdaOntvangen = False
-    else:
-        status = ',NZ'
-        bZdaOntvangen = False
     print status
 
 
