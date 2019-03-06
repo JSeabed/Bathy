@@ -42,7 +42,8 @@ def parseZda(raw_message):
         date = zdaParseDate(sLines)
         dateTime = "'" + date + ' ' + realTime +"'"
         # Send confirmation + data (ZDA OK >> parsed data ) to console and Com1
-        return ' ZDA OK' + ' >> ' + dateTime
+        #return ' ZDA OK' + ' >> ' + dateTime
+        return '+' + dateTime
 
     except Exception as e:
         print ('Exception: ' + str(e))
