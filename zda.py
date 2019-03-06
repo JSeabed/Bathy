@@ -17,7 +17,7 @@ def serZdaReader():
         # Requesting access to global variable named status
         # parse the raw data string into usable variables
         dateTime = parseZda(sLine)
-    return dateTime
+        return dateTime
 
 # Splitting the ZDA data into 8 variables, then process it to time and date
 def parseZda(raw_message):
@@ -46,7 +46,6 @@ def parseZda(raw_message):
 
     except Exception as e:
         print ('Exception: ' + str(e))
-
 
 # Time in format HH:MM:SS
 def zdaParseTime(tempTime):
