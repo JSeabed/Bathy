@@ -52,6 +52,7 @@ serAml.isOpen()
 def pulse(channel):
     #bZdaOntvangen = zda.serZdaReader()
     #print bZdaOntvangen
+    print "pulse start"
     dateTime = zda.serZdaReader()
             # If there is no usable data print "dateTime is none"
     if dateTime is None:
