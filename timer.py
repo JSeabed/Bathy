@@ -67,6 +67,7 @@ def pulse(channel):
     # Checking if the data has been received and setting the system time to the received date.
     # After setting the time the statement gets reset to False for checking in the next cycle. status is also 
     print status
+    return
 
 
 #////////////////////////////////////// Ethernet write loops   //////////////////////////////////////////
