@@ -15,8 +15,6 @@ import Adafruit_BBIO.GPIO as GPIO
 import aml
 import zda
 
-sock1 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 #import gpio
 
 date = ''
