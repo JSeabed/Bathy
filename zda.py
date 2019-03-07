@@ -8,11 +8,11 @@ def serZdaReader():
     serZda.baudrate = 19200
     serZda.isOpen() 
     while True:
-        bLine = serZda.readline()
         try:
+            bLine = serZda.readline()
             sLine = bLine.decode(encoding='utf_8')
         except:
-            sLine = "0"
+            return
         # Requesting access to global variable named bZdaOntvangen
         # Requesting access to global variable named status
         # parse the raw data string into usable variables
