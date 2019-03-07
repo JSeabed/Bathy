@@ -40,7 +40,7 @@ def parseZda(raw_message):
         if len(sLines[2]) < 2 or len(sLines[3]) < 2 or len(sLines[4]) < 2:
             return None
         date = zdaParseDate(sLines)
-        dateTime = "'" + date + ' ' + realTime +"'"
+        dateTime = date + ' ' + realTime 
         # Send confirmation + data (ZDA OK >> parsed data ) to console and Com1
         #return ' ZDA OK' + ' >> ' + dateTime
         return '+' + dateTime
