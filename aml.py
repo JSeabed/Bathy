@@ -52,7 +52,7 @@ def serAmlReader():
             s1Line = b1Line.decode(encoding='utf_8')
             s1Line = s1Line.rstrip(' ' +'\r\n')
         except:
-            s1Line = None
+            s1Line = "0"
             return
         # turn the raw data into usable data blocks
         isAmlValid = parseAml(s1Line)
