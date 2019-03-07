@@ -42,13 +42,13 @@ def serAmlReader():
 
     while True:
         # read the line from serial ALM and write it to blLine
-        b1Line = serAml.readline()
-
+        
         result = "$SBDAML,01-01-2000,02:17:02.722622,0000.000,00.000,21.923,0001.567,008.07,00.000,0000.000,0000.00,st"
         dummy = "0000.000  00.000  21.158  0001.534  008.07  00.000  0000.000  0000.00"
         #b1Line = dummy
         # Decode the data from serial ALM to usable data
         try:
+            b1Line = serAml.readline()
             s1Line = b1Line.decode(encoding='utf_8')
             s1Line = s1Line.rstrip(' ' +'\r\n')
         except:
