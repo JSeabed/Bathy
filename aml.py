@@ -48,11 +48,13 @@ def serAmlReader():
         dummy = "0000.000  00.000  21.158  0001.534  008.07  00.000  0000.000  0000.00"
         #b1Line = dummy
         # Decode the data from serial ALM to usable data
-        s1Line = b1Line.decode(encoding='utf_8')
-        s1Line = s1Line.rstrip(' ' +'\r\n')
+        try:
+            s1Line = b1Line.decode(encoding='utf_8')
+            s1Line = s1Line.rstrip(' ' +'\r\n')
+        except:
+            return
         # turn the raw data into usable data blocks
         isAmlValid = parseAml(s1Line)
-        global bZdaOntvangen
         return isAmlValid
 
 def getTime():
