@@ -12,6 +12,7 @@ def serZdaReader():
             bLine = serZda.readline()
             sLine = bLine.decode(encoding='utf_8')
         except:
+            sLine = None
             return
         # Requesting access to global variable named bZdaOntvangen
         # Requesting access to global variable named status
