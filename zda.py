@@ -1,4 +1,5 @@
 import serial
+import time
 
 #/////////////////////////////////   Serial receive loops   /////////////////////////////////////////////
 def serZdaReader():
@@ -18,6 +19,7 @@ def serZdaReader():
         # Requesting access to global variable named status
         # parse the raw data string into usable variables
         dateTime = parseZda(sLine)
+        time.sleep(0.1)
         return dateTime
 
 # Splitting the ZDA data into 8 variables, then process it to time and date
