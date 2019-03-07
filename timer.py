@@ -95,7 +95,7 @@ def UDPsender():
         sock2.sendto(dataToSend, (UDP_IP2, UDP_PORT2))
 
         timeAml = aml.getTime()
-        time.sleep(0.5)
+        #time.sleep(0.5)
 
 GPIO.add_event_detect("P9_42", GPIO.RISING, callback=pulse, bouncetime = 300)
 print('gpio initialised')
