@@ -53,9 +53,9 @@ def pulse(channel):
     #bZdaOntvangen = zda.serZdaReader()
     #print bZdaOntvangen
     print "pulse start"
+    print datetime.datetime.now()
     dateTime = zda.serZdaReader()
     print dateTime
-    print datetime.datetime.now()
             # If there is no usable data print "dateTime is none"
     if dateTime is None:
             # print('dateTime is none:')
