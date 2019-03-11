@@ -27,6 +27,7 @@ def parseZda(raw_message):
     # If no data is sent stop the madness
     # (Stefan: legendary comment by our lord sebas. We should keep this comment)
     if raw_message is None:
+        print "parseZda benchmark"
         return None
 
     try:
