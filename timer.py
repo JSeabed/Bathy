@@ -23,7 +23,7 @@ dataToSend = '$SBDAML,,,,,,,,ST' + '\r\n'
 timeNow = ''
 dateTime = '' 
 setTime = '' 
-#GPIO.setup("P9_42", GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup("P9_42", GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 
 #/////////////////////////////////   Defining triggers for functions    /////////////////////////////////
@@ -97,8 +97,8 @@ def UDPsender():
         timeAml = aml.getTime()
         time.sleep(0.5)
 
-#GPIO.add_event_detect("P9_42", GPIO.RISING, callback=pulse, bouncetime = 300)
-#print('gpio initialised')
+GPIO.add_event_detect("P9_42", GPIO.RISING, callback=pulse, bouncetime = 300)
+print('gpio initialised')
 # Start thread Ethernet UDP
 thrUDP = threading.Thread(name='UDPsender', target=UDPsender) # Create a thread for serial communication(thrAML) 
 thrUDP.start()
