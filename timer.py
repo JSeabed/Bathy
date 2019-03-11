@@ -4,6 +4,7 @@
 # and sends the data via Ethernet to a computer as a stand alone module.
 
 import os
+import sys
 import serial
 import threading
 import datetime
