@@ -58,7 +58,7 @@ def pulse(channel):
     serSV = serial.Serial('/dev/ttyO4')
     serSV.baudrate = 9600
     serSV.isOpen() 
-    testcode = input("test  serial send over new pin") + '\r\n'
+    testcode = ("test  serial send over new pin") + '\r\n'
     serSV.write(testcode.encode('utf_8'))
     
     print "pulse start"
