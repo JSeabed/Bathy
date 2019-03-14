@@ -46,13 +46,21 @@ serAml = serial.Serial('/dev/ttyO2')
 serAml.baudrate = 38400
 serAml.isOpen()
 
-
+serSV = serial.Serial('/dev/ttyO4')
+serSV.baudrate = 9600
+serSV.isOpen() 
 #///////////////////////////////// This is what happenes when pin 7 (PPS) goes high   ///////////////////
 #this function needs to be triggered by the gpio pins so that it can synchronise the time of the beaglebone with the receiver. the pps pulse is connected to gpio P9_42.
 #the pulse function is only called when there is an analog pulse detected on designated pin. the only information that this function requeres to opperate is the time that was send over the ZDA string.
 def pulse(channel):
     #bZdaOntvangen = zda.serZdaReader()
     #print bZdaOntvangen
+    serSV = serial.Serial('/dev/ttyO4')
+    serSV.baudrate = 9600
+    serSV.isOpen() 
+    testcode = input("test  serial send over new pin") + '\r\n'
+    serSV.write(testcode.encode('utf_8'))
+    
     print "pulse start"
     print datetime.datetime.now()
     #dateTime = zda.serZdaReader()
