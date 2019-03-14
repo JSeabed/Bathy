@@ -53,7 +53,7 @@ def pulse(channel):
     #bZdaOntvangen = zda.serZdaReader()
     #print bZdaOntvangen
     serSV = serial.Serial('/dev/ttyO4')
-    serSV.baudrate = 9600
+    serSV.baudrate = 19200
     serSV.isOpen() 
     testcode = ("test  serial send over new pin") + '\r\n'
     serSV.write(testcode.encode('utf_8'))
