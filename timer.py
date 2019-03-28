@@ -52,7 +52,7 @@ serAml.isOpen()
 def pulse(channel):
     #bZdaOntvangen = zda.serZdaReader()
     #print bZdaOntvangen
-    serSV = serial.Serial('/dev/ttyO5')
+    serSV = serial.Serial('/dev/ttyO4')
     serSV.baudrate = 19200
     serSV.isOpen() 
     testcode = ("test  serial send over new pin") + '\r\n'
