@@ -47,7 +47,7 @@ UDP_IP1 = "10.68.5.91"
 #UDP_IP1 = "172.16.10.50"
 UDP_PORT1 = 5001
 #UDP_IP2 = "10.68.5.92"      
-UDP_IP2 = "172.16.10.50"
+UDP_IP2 = "10.68.5.99"
 UDP_PORT2 = 5001
 
                             # naming the sockets for UDP communication
