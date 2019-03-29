@@ -278,7 +278,7 @@ def pulse(channel):
     global status
     print (bZdaOntvangen)                                   #Print the current value of bZdaOntvangen to the terminal
     print "test_1"
-    print datetime
+    print dateTime
 #checking if the data has been received and setting the system time to the received date. after setting the time the statement gets reset to False for checking in the next cycle. status is also 
     if bZdaOntvangen == True:                                   # if ZDAontvangen is true
         os.system('date -s %s' % dateTime)                         # Sets the system time to dateTime (the time set per ZDA)
