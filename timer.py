@@ -89,7 +89,7 @@ def clearAml():
     global status                                           # Requesting access to global variable named status
     global dateNow; dateNow = ''                            # Requesting access to global variable named dateNow, then empty it
     global dataToSend; dataToSend = '$SBDAML,,,,,,,,' + status + '\r\n'     # Requesting access to global variable named datToSend, then put an default empty string in it
-    print ('AML cleared\r\n')                               # Show a message (AML cleared) in the terminal that started the program
+    #print ('AML cleared\r\n')                               # Show a message (AML cleared) in the terminal that started the program
 
                         #Pulling the time from the system and write it into a usable variable
 def getTime():
@@ -277,8 +277,7 @@ def pulse(channel):
     global dateTime
     global status
     print (bZdaOntvangen)                                   #Print the current value of bZdaOntvangen to the terminal
-    print "test_1"
-    print dateTime
+    #print dateTime
 #checking if the data has been received and setting the system time to the received date. after setting the time the statement gets reset to False for checking in the next cycle. status is also 
     if bZdaOntvangen == True:                                   # if ZDAontvangen is true
         os.system('date -s %s' % dateTime)                         # Sets the system time to dateTime (the time set per ZDA)
