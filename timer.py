@@ -276,7 +276,7 @@ def pulse(channel):
     global bZdaOntvangen                                    # Getting some global variables and stuff
     global dateTime
     global status
-    print (bZdaOntvangen)                                   #Print the current value of bZdaOntvangen to the terminal
+    #print (bZdaOntvangen)                                   #Print the current value of bZdaOntvangen to the terminal
     #print dateTime
 #checking if the data has been received and setting the system time to the received date. after setting the time the statement gets reset to False for checking in the next cycle. status is also 
     if bZdaOntvangen == True:                                   # if ZDAontvangen is true
@@ -307,7 +307,7 @@ def UDPsender():
     while True:                                                 # Do forever
         
        # print('Send over Ethernet')                             # send to console that data is being sent over ethernet                    
-        global dataToSend; print (dataToSend + '\r\n')          # Get the string to sent over UDP and print it to terminal
+        global dataToSend #; print (dataToSend + '\r\n')          # Get the string to sent over UDP and print it to terminal
         sock1.sendto(dataToSend, (UDP_IP1, UDP_PORT1))          # send the string to the first IP address over UDP
         sock2.sendto(dataToSend, (UDP_IP2, UDP_PORT2))          # Send the string to the second IP adress over UDP
         clearAml()                                              # Clear the string to avoid duplicates 
