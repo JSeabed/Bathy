@@ -15,7 +15,6 @@ import Adafruit_BBIO.GPIO as GPIO
 
 import aml
 import zda
-
 #import gpio
 
 date = ''
@@ -27,7 +26,7 @@ setTime = ''
 GPIO.setup("P9_42", GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 
-#/////////////////////////////////   Defining triggers for functions    /////////////////////////////////
+# Defining triggers for functions
 # trigger is used for the PPS input. ZDA is used to monitor the time that has passed since the requested time(?)
 # [original line: This trigger is to keep track of the "freshness" of the ZDA time info]
 # AML trigger is to see if there is unsend AML info
@@ -46,9 +45,11 @@ serAml = serial.Serial('/dev/ttyO2')
 serAml.baudrate = 38400
 serAml.isOpen()
 
-#///////////////////////////////// This is what happenes when pin 7 (PPS) goes high   ///////////////////
-#this function needs to be triggered by the gpio pins so that it can synchronise the time of the beaglebone with the receiver. the pps pulse is connected to gpio P9_42.
-#the pulse function is only called when there is an analog pulse detected on designated pin. the only information that this function requeres to opperate is the time that was send over the ZDA string.
+# This is what happenes when pin 7 (PPS) goes high
+#this function needs to be triggered by the gpio pins so that it can synchronise the time of the 
+# beaglebone with the receiver. the pps pulse is connected to gpio P9_42.
+#the pulse function is only called when there is an analog pulse detected on designated pin. 
+# The only information that this function requeres to opperate is the time that was send over the ZDA string.
 def pulse(channel):
     #bZdaOntvangen = zda.serZdaReader()
     #print bZdaOntvangen
@@ -73,7 +74,7 @@ def pulse(channel):
     return
 
 
-#////////////////////////////////////// Ethernet write loops   //////////////////////////////////////////
+# Ethernet write loop
 def UDPsender():
     # IP adresses and ports for Ethernet transfers
     UDP_IP1 = "10.68.5.91"

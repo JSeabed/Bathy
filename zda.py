@@ -1,7 +1,7 @@
 import serial
 import time
 
-#/////////////////////////////////   Serial receive loops   /////////////////////////////////////////////
+# Serial receive loops
 def serZdaReader():
 # Open Com port of GPZDA (Connected through P9_26)
 # Linking serZDA to the correct Com port with the correct baudrate and setting the state of the port to open.

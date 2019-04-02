@@ -1,7 +1,6 @@
 # Splitting the AML Data into variables and combining with time
 # parseAml gets called from within serAmlReader and is expected to
 # return a value that is to be send over the sockets to the designated IP adresses.
-# This function 
 
 import datetime
 import serial
@@ -25,7 +24,7 @@ def parseAml (raw_mess):
     if len(sLineAml) < 2:
         sock1.sendto(raw_mess + '\r\n', (UDP_IP1, UDP_PORT1))
         sock2.sendto(raw_mess + '\r\n', (UDP_IP2, UDP_PORT2))
-#
+
     dateNow = getTime()
     dataToSend = '$SBDAML' + ',' + dateNow
     LinesToSend = ','.join(sLineAml[1:])
@@ -42,10 +41,10 @@ def serAmlReader():
 
     while True:
         # read the line from serial ALM and write it to blLine
-        
+
         result = "$SBDAML,01-01-2000,02:17:02.722622,0000.000,00.000,21.923,0001.567,008.07,00.000,0000.000,0000.00,st"
         dummy = "0000.000  00.000  21.158  0001.534  008.07  00.000  0000.000  0000.00"
-        #b1Line = dummy
+        # §b1Line = dummy
         # Decode the data from serial ALM to usable data
         try:
             b1Line = serAml.readline()
@@ -53,7 +52,7 @@ def serAmlReader():
             s1Line = s1Line.rstrip(' ' +'\r\n')
         except:
             s1Line = "0,0,0,0"
-            
+
             # turn the raw data into usable data blocks
         isAmlValid = parseAml(s1Line)
         return isAmlValid
