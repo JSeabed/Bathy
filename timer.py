@@ -222,7 +222,7 @@ def serZdaReader():
         
         bLine = serZda.readline()                           # Read the incoming data from serial ZDA and put it in bLine
         try:                                                # if possible do
-            sLine = bLine.decode(encoding='utf_8')          # decode it into usable data      
+            bLine = bLine.decode(encoding='utf_8')          # decode it into usable data      
 
         except:                                             # if not possible
             pass                                            # don't do anything
@@ -231,7 +231,7 @@ def serZdaReader():
         global bZdaOntvangen                                # Requesting access to global variable named bZdaOntvangen
         global status                                       # Requesting access to global variable named status
        # print (' COM1 ZDA: ' + sLine)                        # Write the ZDA data to terminal
-        dateTime = parseZda(sLine)                         # parse the raw data string into usable variables
+        dateTime = parseZda(bLine)                         # parse the raw data string into usable variables
         if dateTime == None:                               # if there is no usable data print "dateTime is none"
             print('dateTime is none:')
             bZdaOntvangen = False                           # Boolean bZdaOntvangen is set to False
