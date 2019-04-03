@@ -54,6 +54,7 @@ UDP_PORT2 = 5001
 sock1 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
+time.sleep(20)
 #/////////////////////////////////   Defining triggers for functions    /////////////////////////////////
 # trigger is used for the PPS input. ZDA is used to monitor the time that has passed since the requested time(?) [original line: This trigger is to keep track of the "freshness" of the ZDA time info]. 
 # AML trigger is to see if there is unsend AML info
