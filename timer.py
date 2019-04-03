@@ -213,11 +213,8 @@ def parseAml (raw_mess):
 #/////////////////////////////////   Serial receive loops   /////////////////////////////////////////////
     
 def serZdaReader():
-    if serZda.isOpen == True:
-        pass
-    else:
-        serZda.close()
-        serZda.open()
+    serZda.close()
+    serZda.open()
 
     while True:                                             # Run forever
         
@@ -245,11 +242,8 @@ def serZdaReader():
 
                             #Serial AML (Com2)
 def serAmlReader():
-    if serAml.isOpen == True:
-        pass
-    else:
-        serAml.close()
-        serAml.open()
+    serAml.close()
+    serAml.open()
         
     while True:                                             # loop forever
         b1Line = serAml.readline()                          # read the line from serial ALM and write it to blLine
