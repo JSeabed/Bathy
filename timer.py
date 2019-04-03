@@ -213,11 +213,10 @@ def parseAml (raw_mess):
 #/////////////////////////////////   Serial receive loops   /////////////////////////////////////////////
     
 def serZdaReader():
-    serZda.close()
-    serZda.open()
-
+   
     while True:                                             # Run forever
-        
+        serZda.close()
+        serZda.open()
         bLine = serZda.readline()                           # Read the incoming data from serial ZDA and put it in bLine
         try:                                                # if possible do
             bLine = bLine.decode(encoding='utf_8')          # decode it into usable data      
@@ -242,10 +241,10 @@ def serZdaReader():
 
                             #Serial AML (Com2)
 def serAmlReader():
-    serAml.close()
-    serAml.open()
-        
+
     while True:                                             # loop forever
+        serAml.close()
+        serAml.open()
         b1Line = serAml.readline()                          # read the line from serial ALM and write it to blLine
         s1Line = b1Line.decode(encoding='utf_8')            # Decode the data from serial ALM to usable data
         s1Line = s1Line.rstrip(' ' +'\r\n')
