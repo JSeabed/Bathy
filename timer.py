@@ -71,15 +71,13 @@ GPIO.setup("P9_42", GPIO.IN, pull_up_down=GPIO.PUD_DOWN)          # setting Pin 
 #///////////////////   Serial communication configurations    ///////////////////////////////////////////
 #Open Com port of GPZDA (Connected through P9_26)
 # Linking serZDA to the correct Com port with the correct baudrate and setting the state of the port to open.
-serZda = serial.Serial('/dev/ttyO1')                      
-serZda.baudrate = 19200                                     
+serZda = serial.Serial('/dev/ttyO1', 19200)                                                
 serZda.isOpen()                                             
 serZda.flushInput()
 serZda.flushOutput()
 #Open Com port of AML (connected through P9_21 and P9_22)
 # Linking serAml to the correct Com port with the correct baudrate and setting the state of the port to open.
-serAml = serial.Serial('/dev/ttyO2')                      # Linking serAml to the correct Com port
-serAml.baudrate = 38400                                     # Setting the communication speed of the serial port
+serAml = serial.Serial('/dev/ttyO2', 38400)                      # Linking serAml to the correct Com port
 serAml.isOpen()                                             # Open serial port
 serAml.flushInput()
 serAml.flushOutput()
