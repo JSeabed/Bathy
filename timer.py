@@ -216,6 +216,7 @@ def serZdaReader():
    
     while True:                                             # Run forever
         serZda.close()
+        serZda = serial.Serial('/dev/ttyO1', 19200)  
         serZda.open()
         bLine = serZda.readline()                           # Read the incoming data from serial ZDA and put it in bLine
         try:                                                # if possible do
