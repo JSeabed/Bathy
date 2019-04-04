@@ -215,7 +215,6 @@ def parseAml (raw_mess):
 def serZdaReader():
    
     while True:                                             # Run forever
-        serZda.close()
         serZda = serial.Serial('/dev/ttyO1', 19200)  
         bLine = serZda.readline()                           # Read the incoming data from serial ZDA and put it in bLine
         try:                                                # if possible do
@@ -243,8 +242,9 @@ def serZdaReader():
 def serAmlReader():
 
     while True:                                             # loop forever
-        serAml.close()
-        serAml.open()
+        serAml = serial.Serial('/dev/ttyO2', 38400)
+        #serAml.close()
+       # serAml.open()
         b1Line = serAml.readline()                          # read the line from serial ALM and write it to blLine
         s1Line = b1Line.decode(encoding='utf_8')            # Decode the data from serial ALM to usable data
         s1Line = s1Line.rstrip(' ' +'\r\n')
